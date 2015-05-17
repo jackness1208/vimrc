@@ -27,7 +27,6 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " Plugins
 " base -------------------------
 Plugin 'gmarik/Vundle.vim'
@@ -45,14 +44,15 @@ Plugin 'scrooloose/nerdtree'
 " vim-startify -----------------
 Plugin 'mhinz/vim-startify'
 
+
 " vim-multiple-cursors ---------
 Plugin 'terryma/vim-multiple-cursors'
 
 " ervandew/supertab ------------
 Plugin 'ervandew/supertab'
 
-" ervandew/supertab ------------
-"Plugin 'ervandew/supertab'
+" YouCompleteMe ----------------
+"Plugin 'Valloric/YouCompleteMe'
 
 " mattn/emmet-vim --------------
 Plugin 'mattn/emmet-vim'
@@ -67,15 +67,16 @@ Plugin 'vim-scripts/ctags.vim'
 Plugin 'dyng/ctrlsf.vim'
 
 " ack [需额外装插件]------------
-Plugin 'mileszs/ack.vim'
+"Plugin 'mileszs/ack.vim'
+
+" ag [需额外装插件]------------
+Plugin 'rking/ag.vim'
 
 " vim-indent-guides ------------
 Plugin 'nathanaelkane/vim-indent-guides'
 
  "nerdcommenter ----------------
 Plugin 'scrooloose/nerdcommenter'
-
-
 
 " vim-scripts/Tagbar -----------
 Plugin 'majutsushi/tagbar'
@@ -89,8 +90,25 @@ Plugin 'skammer/vim-css-color'
 " Visual-Mark ------------------
 Plugin 'vim-scripts/Visual-Mark'
 
+" vim-session ------------------
+Plugin 'xolox/vim-session'
+
+" vim-misc ---------------------
+Plugin 'xolox/vim-misc'
+
+" Recover.vim ------------------
+"Plugin 'chrisbra/Recover.vim'
+
+" vim-surround -----------------
+Plugin 'tpope/vim-surround'
+
+
+
+
+
 call vundle#end()
 filetype plugin indent on
+
 
 " --------------------
 " # airline 
@@ -159,7 +177,7 @@ endfunction
 " --------------------
 " # tagbar
 " --------------------
-let g:tagbar_width=25
+let g:tagbar_width=30
 
 " --------------------
 " # vim-indent-guides
@@ -187,6 +205,12 @@ autocmd FileType html,css EmmetInstall
 
 " 执行按钮
 let g:user_emmet_leader_key='<C-y>'
+
+" --------------------
+" # ctrlSF 
+" --------------------
+let g:ctrlsf_ackprg = 'ag'
+let g:ctrlsf_context = '-B 5 -A 3'
 " --------------------
 " # js beautify
 " --------------------
@@ -196,6 +220,17 @@ autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+
+" --------------------
+" # session
+" --------------------
+" 自动保存session
+let g:session_autosave='yes'
+" 每隔 5 分钟 保存一次 session
+let g:session_autosave_periodic=5
+" 打开vim自动载入上次 session 
+let g:session_default_to_last='yes'
+let g:session_autoload='yes'
 
 " ======================================================
 " # 系统设置
@@ -267,7 +302,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
-"-----
 
 " 不要用空格代替制表符
 set expandtab
@@ -324,7 +358,7 @@ set iskeyword+=_,$,@,%,#,-
 
 "======================================================
 " 快捷键设置
-" =====================================================
+"======================================================
 
 
 " 干掉系统默认快捷键
@@ -337,29 +371,26 @@ let mapleader=";"
 "set ttimeout
 
 "# 设置NerdTree -------------------
-map <F3> :NERDTreeMirror<CR>
-map <F3> :NERDTreeToggle<CR>
+"map <F3> :NERDTreeMirror<CR>
+"map <F3> :NERDTreeToggle<CR>
+map <Leader>2 :NERDTreeMirror<CR>
+map <Leader>2 :NERDTreeToggle<CR>
 
-"# 设置 winManager ----------------
-"nmap <silent> <F3> :WMToggle<CR>
+
 
 "# 设置vim-indent-guides
 " 快捷键 i 开/关缩进可视化
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 "# ctrlSF -------------------------
-if MySys() == "windows" 
-    nmap<S-F> :CtrlSF 
-else
-    nmap<S-F> :CtrlSF 
-endif
+nmap<S-F> :CtrlSF 
 
 "# tagbar -------------------------
-nmap<F4> :TagbarToggle<CR>
-
+"nmap<F4> :TagbarToggle<CR>
+nmap<Leader>3 :TagbarToggle<CR>
 "# startify -----------------------
-nmap<F5> :tabnew<CR>:Startify<CR>
-
+"nmap<F5> :tabnew<CR>:Startify<CR>
+nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# 代码注释 -----------------------
 if MySys() == "windows"
     vmap <C-/> <Leader>c gv
@@ -385,13 +416,15 @@ else
 endif
 "map <D-f> <Esc> :/
 
+"# tab 操作 -----------------------
+
 " 普通模式换行---------------------
 nmap <CR> i<CR><Esc>
 nmap <BS> i<BS><Esc>
 
 
 " 定义快捷键到行首和行尾
-map <Leader>b 0
+map <Leader>b ^
 map <Leader>e $
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
@@ -409,6 +442,8 @@ nmap <Leader>Q :qa!<CR>
 nnoremap nt :tabn<CR>
 " 依次遍历子窗口
 nnoremap nw <C-W><C-W>
+" 依次遍历marks(要配合 v-mark)
+nnoremap nm <F2>
 " 跳转至右方的窗口
 nnoremap <Leader>wl <C-W>l
 nnoremap <Leader>lw <C-W>l
