@@ -1,21 +1,63 @@
 
 " Maintainer:   jackness Lau
 " Last Change:  2015.5.16
-"======================================================
+
+
+" ======================================================
 " function 定义
 " ======================================================
 function MySys()
-    return 'osx'
-    let os=substitute(system('uname'), '\n', '', '')
-    if os == 'Mac'
-        return os
-    elseif os == 'Darwin'
+    if has('win32') || has('win64')
         return 'windows'
-    elseif os == 'Linux'
-        return os
+    else
+        return 'others'
     endif
-    return true;
+    
 endfunction
+
+" windows 预处理函数
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      if empty(&shellxquote)
+        let l:shxq_sav = ''
+        set shellxquote&
+      endif
+      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+  if exists('l:shxq_sav')
+    let &shellxquote=l:shxq_sav
+  endif
+endfunction
+
+" ======================================================
+" 预处理
+" ======================================================
+if MySys() == 'windows'
+    set nocompatible
+    source $VIMRUNTIME/vimrc_example.vim
+    source $VIMRUNTIME/mswin.vim
+    behave mswin
+    set diffexpr=MyDiff()
+
+endif
+
+
 
 " ======================================================
 " 插件设置
@@ -114,7 +156,13 @@ filetype plugin indent on
 " # airline 
 " --------------------
 set laststatus=2
-let g:airline_powerline_fonts = 1
+if MySys() == 'windows'
+    let g:airline_powerline_fonts = 0
+else
+    let g:airline_powerline_fonts = 1
+endif
+
+let g:airline_theme = 'powerlineish' 
 
 " --------------------
 " # startify 
@@ -180,7 +228,7 @@ endfunction
 let g:tagbar_width=30
 
 " --------------------
-" # vim-indent-guides
+" # vim-indnt-guides
 " --------------------
 " 随 vim 自启动
 let g:indent_guides_enable_on_vim_startup=1
@@ -220,6 +268,16 @@ autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+" --------------------
+" # nerdcommenter
+" --------------------
+let g:NERDCustomDelimiters = {
+    \ 'html': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/' },
+    \ 'xhtml': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/'},
+    \'vimperator': { 'left': '"' },
+\}
+let NERD_html_alt_style=1
+
 
 " --------------------
 " # session
@@ -248,10 +306,36 @@ set backspace+=indent,eol,start
 set langmenu=none
 
 " # 设置编码格式
-set ff=unix
-set fileencodings=zh_CN.ucs-bom,utf-8,cp936
-set fileencoding=utf-8
-set termencoding=utf-8
+if has("multi_byte")
+    " A,set encoding
+    "set encoding=utf-8
+    set fileencodings=utf-8,cp936,chinese,cp932
+    set tenc=utf-8
+    set maxcombine=4
+    set termencoding=utf-8
+    " open asia support
+    set fo+=mBM
+    if v:lang=~? '^\(zh\)\|\(ja\)|\(ko\)\|\(jp\)'
+        set ambiwidth=double
+    endif
+
+    if MySys() == 'windows'
+        set fenc=chinese
+        if version>=603
+            set helplang=cn
+        endif
+    else
+        set fenc=utf-8
+    endif
+
+    let &termencoding=&encoding
+
+    " B,vim tips support
+    language messages zh_CN.utf-8
+    "关闭自动检测
+    let g:fencview_autodetect=0
+endif
+
 
 " 显示tab和空格
 set list
@@ -268,6 +352,7 @@ set lcs=tab:\|\ ,nbsp:%,trail:-
 " 不生成 ~ 文件
 set noswapfile
 set nobackup
+set noundofile
 
 " 配色方案
 syntax enable
@@ -281,7 +366,7 @@ set foldmethod=syntax
 set nofoldenable
 
 " 字体
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 "高亮光标所在行
 set cul
 set cuc
@@ -334,6 +419,8 @@ set noeb
 
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
 set mouse=a
+" 这样设置才能确保 mutiselect 插件能用
+set selection=inclusive
 " 通过使用: commands命令，告诉我们文件的哪一行被改变过
 set report=0
 " 在被分割的窗口间显示空白，便于阅读
@@ -354,7 +441,6 @@ filetype indent on
 set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
-
 
 "======================================================
 " 快捷键设置
@@ -468,5 +554,7 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
+
+
 
 
