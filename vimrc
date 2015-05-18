@@ -114,11 +114,15 @@ Plugin 'dyng/ctrlsf.vim'
 " ag [需额外装插件]------------
 Plugin 'rking/ag.vim'
 
-" vim-indent-guides ------------
-Plugin 'nathanaelkane/vim-indent-guides'
+" indentLine -------------------
+Plugin 'Yggdroot/indentLine'
+
 
  "nerdcommenter ----------------
-Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdcommenter'
+
+ "vim-commentary ---------------
+Plugin 'tpope/vim-commentary'
 
 " vim-scripts/Tagbar -----------
 Plugin 'majutsushi/tagbar'
@@ -128,6 +132,8 @@ Plugin 'maksimr/vim-jsbeautify'
 
 " vim-css-color ----------------
 Plugin 'skammer/vim-css-color'
+
+
 
 " Visual-Mark ------------------
 Plugin 'vim-scripts/Visual-Mark'
@@ -162,7 +168,7 @@ else
     let g:airline_powerline_fonts = 1
 endif
 
-let g:airline_theme = 'powerlineish' 
+"let g:airline_theme = 'powerlineish' 
 
 " --------------------
 " # startify 
@@ -170,9 +176,10 @@ let g:airline_theme = 'powerlineish'
 " 设置书签
 let g:startify_bookmarks = [
     \ '/Applications/MacVim.app/Contents/Resources/vim/vimrc',
+    \ '~/git/github/vimrc/vimrc',
     \ '/etc/hosts',
-    \ '/Users/jackness/git/uc/nba-frontend',
-    \ '/Users/jackness/git/uc/nba-tasks',
+    \ '~/git/uc/nba-frontend',
+    \ '~/git/uc/nba-tasks',
     \]
 
 " 起始页显示的列表长度
@@ -228,15 +235,9 @@ endfunction
 let g:tagbar_width=30
 
 " --------------------
-" # vim-indnt-guides
+" # indentLine
 " --------------------
-" 随 vim 自启动
-let g:indent_guides_enable_on_vim_startup=1
-" 从第二层开始可视化显示缩进
-let g:indent_guides_start_level=2
-" 色块宽度
-let g:indent_guides_guide_size=1
-
+et g:indentLine_leadingSpaceChar = '·'
 " --------------------
 " # emmet
 " --------------------
@@ -289,6 +290,7 @@ let g:session_autosave_periodic=5
 " 打开vim自动载入上次 session 
 let g:session_default_to_last='yes'
 let g:session_autoload='yes'
+
 
 " ======================================================
 " # 系统设置
@@ -350,7 +352,7 @@ set lcs=tab:\|\ ,nbsp:%,trail:-
 
 
 " 不生成 ~ 文件
-set noswapfile
+set noswapfie
 set nobackup
 set noundofile
 
@@ -378,7 +380,7 @@ set number
 
 " 自动缩进
 set autoindent
-set cindent
+set smartindent
 
 " Tab键的宽度
 set tabstop=4
@@ -442,6 +444,7 @@ set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 
+
 "======================================================
 " 快捷键设置
 "======================================================
@@ -455,6 +458,7 @@ set iskeyword+=_,$,@,%,#,-
 let mapleader=";"
 "set notimeout
 "set ttimeout
+
 
 "# 设置NerdTree -------------------
 "map <F3> :NERDTreeMirror<CR>
@@ -479,11 +483,11 @@ nmap<Leader>3 :TagbarToggle<CR>
 nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# 代码注释 -----------------------
 if MySys() == "windows"
-    vmap <C-/> <Leader>c gv
-    nmap <C-/> <Leader>c<Space>
+    vmap <C-/> gc
+    nmap <C-/> gcc
 else
-    vmap <D-/> <Leader>c gv
-    nmap <D-/> <Leader>c<Space>
+    vmap <D-/> gc
+    nmap <D-/> gcc
 
 endif
 
@@ -525,27 +529,23 @@ nmap <Leader>WQ :wa<CR>:q<CR>
 " 不做任何保存，直接退出 vim
 nmap <Leader>Q :qa!<CR>
 " 依次遍历tab
-nnoremap nt :tabn<CR>
+nnoremap tn :tabn<CR>
 " 依次遍历子窗口
-nnoremap nw <C-W><C-W>
+nnoremap wn <C-W><C-W>
 " 依次遍历marks(要配合 v-mark)
-nnoremap nm <F2>
+nnoremap mn <F2>
 " 跳转至右方的窗口
-nnoremap <Leader>wl <C-W>l
-nnoremap <Leader>lw <C-W>l
+nnoremap wl <C-W>l
 " 跳转至左方的窗口
-nnoremap <Leader>wh <C-W>h
-nnoremap <Leader>hw <C-W>h
+nnoremap wh <C-W>h
 " 跳转至上方的子窗口
-nnoremap <Leader>wk <C-W>k
-nnoremap <Leader>kw <C-W>k
+nnoremap wk <C-W>k
 " 跳转至下方的子窗口
-nnoremap <Leader>jw <C-W>j
-nnoremap <Leader>wj <C-W>j
+nnoremap wj <C-W>j
 " 上下分割当前文件
-nmap <Leader>ws <C-w>s
+nmap ws <C-w>s
 " 左右分割当前文件
-nmap <Leader>wv <C-w>v
+nmap wv <C-w>v
 
 " 定义快捷键在结对符之间跳转，助记pair
 nmap <Leader>pa %
@@ -554,7 +554,5 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
-
-
 
 
