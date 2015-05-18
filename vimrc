@@ -492,8 +492,8 @@ else
 endif
 
 "# 代码缩进 -----------------------
-vmap <Tab> >> gv
-vmap <S-Tab> << gv
+vmap <Tab> >
+vmap <S-Tab> <
 nmap <Tab> >>
 nmap <S-Tab> <<
 
