@@ -148,8 +148,13 @@ Plugin 'xolox/vim-misc'
 "Plugin 'chrisbra/Recover.vim'
 
 " vim-surround -----------------
-Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-surround'
 
+" jshint2.vim ------------------
+Plugin 'Shutnik/jshint2.vim'
+
+" vim-javascript ---------------
+" Plugin 'pangloss/vim-javascript'
 
 
 
@@ -174,14 +179,26 @@ endif
 " # startify 
 " --------------------
 " 设置书签
-let g:startify_bookmarks = [
-    \ '/Applications/MacVim.app/Contents/Resources/vim/vimrc',
-    \ '~/git/github/vimrc/vimrc',
-    \ '/etc/hosts',
-    \ '~/git/uc/nba-frontend',
-    \ '~/git/uc/nba-tasks',
-    \]
+"
+if MySys() == 'windows'
+    let g:startify_bookmarks = [
+        \ 'D:\Program Files (x86)\vim\_vimrc',
+        \ 'G:\GitHub\vimrc',
+        \ 'D:\Program Files (x86)\vim\.jshintrc',
+        \ 'C:\Windows\System32\drivers\etc\hosts',
+        \ 'G:\uc\github\nba-frontend',
+        \ 'G:\uc\github\nba-tasks',
+        \]
 
+else 
+    let g:startify_bookmarks = [
+        \ '/Applications/MacVim.app/Contents/Resources/vim/vimrc',
+        \ '~/git/github/vimrc/vimrc',
+        \ '/etc/hosts',
+        \ '~/git/uc/nba-frontend',
+        \ '~/git/uc/nba-tasks',
+        \]
+endif
 " 起始页显示的列表长度
 let g:startify_files_number = 5
 let g:startify_custom_header = [
@@ -191,6 +208,7 @@ let g:startify_custom_header = [
 let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
+   \'# 如果 session挂了 请输入 :OpenSession! default',
    \]
 
 " Default mapping 
@@ -237,7 +255,7 @@ let g:tagbar_width=30
 " --------------------
 " # indentLine
 " --------------------
-et g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceChar = '·'
 " --------------------
 " # emmet
 " --------------------
@@ -260,6 +278,9 @@ let g:user_emmet_leader_key='<C-y>'
 " --------------------
 let g:ctrlsf_ackprg = 'ag'
 let g:ctrlsf_context = '-B 5 -A 3'
+
+
+
 " --------------------
 " # js beautify
 " --------------------
@@ -307,10 +328,17 @@ set backspace+=indent,eol,start
 " translated to English).
 set langmenu=none
 
+"set the menu & the message to English
+set langmenu=en_US
+let $LANG = 'en_US'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
 " # 设置编码格式
 if has("multi_byte")
     " A,set encoding
-    "set encoding=utf-8
+    set encoding=utf-8
+    set nobomb
     set fileencodings=utf-8,cp936,chinese,cp932
     set tenc=utf-8
     set maxcombine=4
@@ -352,7 +380,7 @@ set lcs=tab:\|\ ,nbsp:%,trail:-
 
 
 " 不生成 ~ 文件
-set noswapfie
+set noswapfile
 set nobackup
 set noundofile
 
@@ -554,5 +582,7 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
+
+
 
 
