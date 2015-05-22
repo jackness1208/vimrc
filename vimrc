@@ -352,7 +352,7 @@ set lcs=tab:\|\ ,nbsp:%,trail:-
 
 
 " 不生成 ~ 文件
-set noswapfie
+set noswapfile
 set nobackup
 set noundofile
 
@@ -483,17 +483,17 @@ nmap<Leader>3 :TagbarToggle<CR>
 nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# 代码注释 -----------------------
 if MySys() == "windows"
-    vmap <C-/> gc
+    vmap <C-/> gcgv
     nmap <C-/> gcc
 else
-    vmap <D-/> gc
+    vmap <D-/> gcgv
     nmap <D-/> gcc
 
 endif
 
 "# 代码缩进 -----------------------
-vmap <Tab> >
-vmap <S-Tab> <
+vmap <Tab> >gv
+vmap <S-Tab> <gv
 nmap <Tab> >>
 nmap <S-Tab> <<
 
