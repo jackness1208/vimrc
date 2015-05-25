@@ -158,8 +158,11 @@ Plugin 'Shutnik/jshint2.vim'
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
 
-" /EasyGrep --------------------
+" EasyGrep ---------------------
 Plugin 'vim-scripts/EasyGrep'
+
+" YankRing.vim -----------------
+"Plugin 'vim-scripts/YankRing.vim'
 
 
 
@@ -593,6 +596,8 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
+
+
 
 
 
