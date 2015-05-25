@@ -109,10 +109,12 @@ Plugin 'vim-scripts/ctags.vim'
 Plugin 'dyng/ctrlsf.vim'
 
 " ack [需额外装插件]------------
-"Plugin 'mileszs/ack.vim'
+" Plugin 'mileszs/ack.vim'
 
 " ag [需额外装插件]------------
 Plugin 'rking/ag.vim'
+
+
 
 " indentLine -------------------
 Plugin 'Yggdroot/indentLine'
@@ -155,6 +157,9 @@ Plugin 'Shutnik/jshint2.vim'
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
+
+" /EasyGrep --------------------
+Plugin 'vim-scripts/EasyGrep'
 
 
 
@@ -279,6 +284,11 @@ let g:user_emmet_leader_key='<C-y>'
 let g:ctrlsf_ackprg = 'ag'
 let g:ctrlsf_context = '-B 5 -A 3'
 
+" --------------------
+" # ag
+" --------------------
+let g:ag_highlight=1
+
 
 
 " --------------------
@@ -312,7 +322,6 @@ let g:session_autosave_periodic=5
 let g:session_default_to_last='yes'
 let g:session_autoload='yes'
 
-
 " ======================================================
 " # 系统设置
 " ======================================================
@@ -328,18 +337,13 @@ set backspace+=indent,eol,start
 " translated to English).
 set langmenu=none
 
-"set the menu & the message to English
-set langmenu=en_US
-let $LANG = 'en_US'
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 
 " # 设置编码格式
 if has("multi_byte")
     " A,set encoding
     set encoding=utf-8
     set nobomb
-    set fileencodings=utf-8,cp936,chinese,cp932
+    set fileencodings=ucs-bom,utf-8,cp936,chinese,cp932,gb2312,gbk,gb18030
     set tenc=utf-8
     set maxcombine=4
     set termencoding=utf-8
@@ -363,8 +367,12 @@ if has("multi_byte")
     " B,vim tips support
     language messages zh_CN.utf-8
     "关闭自动检测
-    let g:fencview_autodetect=0
+    "let g:fencview_autodetect=0
 endif
+set langmenu=zh_CN.UTF-8
+language message zh_CN.UTF-8
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 
 
 " 显示tab和空格
@@ -512,9 +520,9 @@ nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# 代码注释 -----------------------
 if MySys() == "windows"
     vmap <C-/> gcgv
-    nmap <C-/> gcc
+    nmap <C-/> gccgv
 else
-    vmap <D-/> gcgv
+    vmap <D-/> gc
     nmap <D-/> gcc
 
 endif
@@ -582,6 +590,7 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
+
 
 
 
