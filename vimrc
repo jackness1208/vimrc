@@ -91,7 +91,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'terryma/vim-multiple-cursors'
 
 " ervandew/supertab ------------
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 
 " YouCompleteMe ----------------
 "Plugin 'Valloric/YouCompleteMe'
@@ -197,6 +197,7 @@ else
         \ '/etc/hosts',
         \ '~/git/uc/nba-frontend',
         \ '~/git/uc/nba-tasks',
+        \ '/Users/jackness/git/github/tool.jackness.org',
         \]
 endif
 " 起始页显示的列表长度
@@ -265,10 +266,11 @@ let g:indentLine_leadingSpaceChar = '·'
 let g:user_emmet_mode='inv'
 "enable all function in all mode.
 "let g:user_emmet_mode='a'
+let g:user_emmet_expandabbr_key = '<Tab>'
 
 " 只在 html、css中运行
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+autocmd FileType html,css,smarty EmmetInstall
 
 " 执行按钮
 let g:user_emmet_leader_key='<C-y>'
@@ -494,7 +496,8 @@ let mapleader=";"
 map <Leader>2 :NERDTreeMirror<CR>
 map <Leader>2 :NERDTreeToggle<CR>
 
-
+"# 设置emmet -------------------
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 "# 设置vim-indent-guides
 " 快捷键 i 开/关缩进可视化
@@ -582,6 +585,7 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
+
 
 
 
