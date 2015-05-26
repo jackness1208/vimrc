@@ -162,7 +162,7 @@ Plugin 'Shutnik/jshint2.vim'
 Plugin 'vim-scripts/EasyGrep'
 
 " YankRing.vim -----------------
-"Plugin 'vim-scripts/YankRing.vim'
+Plugin 'vim-scripts/YankRing.vim'
 
 
 
@@ -191,7 +191,7 @@ endif
 if MySys() == 'windows'
     let g:startify_bookmarks = [
         \ 'D:\Program Files (x86)\vim\_vimrc',
-        \ 'G:\GitHub\vimrc',
+        \ 'G:\GitHub\vimrc\vimrc',
         \ 'D:\Program Files (x86)\vim\.jshintrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \ 'G:\uc\github\nba-frontend',
@@ -403,8 +403,8 @@ colorscheme monokai
 
 " 配置折叠
 "set foldmethod=manual
-"set foldmethod=indent
-set foldmethod=syntax
+set foldmethod=indent
+" set foldmethod=syntax
 " 启动 vim 时关闭折叠代码
 set nofoldenable
 
@@ -507,6 +507,10 @@ let mapleader=";"
 map <Leader>2 :NERDTreeMirror<CR>
 map <Leader>2 :NERDTreeToggle<CR>
 
+"# 设置YankRing -------------------
+map yr :YRShow<CR>
+map <Leader>` :YRShow<CR>
+
 "# 设置emmet -------------------
 imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
@@ -524,16 +528,16 @@ nmap<Leader>3 :TagbarToggle<CR>
 "nmap<F5> :tabnew<CR>:Startify<CR>
 nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# 代码注释 -----------------------
-if MySys() == "windows"
-    vmap <C-/> gcgv
-    nmap <C-/> gccgv
+if MySys() == "windows" 
+    vmap <C-/> gc
+    nmap <C-/> gcc
 else
     vmap <D-/> gc
     nmap <D-/> gcc
 
 endif
 
-"# 代码缩进 -----------------------
+" "# 代码缩进 -----------------------
 vmap <Tab> >gv
 vmap <S-Tab> <gv
 nmap <Tab> >>
@@ -596,10 +600,5 @@ nmap <Leader>pa %
 nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
-
-
-
-
-
 
 
