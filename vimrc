@@ -576,6 +576,8 @@ nmap <Leader>WQ :wa<CR>:q<CR>
 nmap <Leader>Q :qa!<CR>
 " 依次遍历tab
 nnoremap tn :tabn<CR>
+"" 依次遍历tab
+nnoremap tp :tabp<CR>
 " 依次遍历子窗口
 nnoremap wn <C-W><C-W>
 " 依次遍历marks(要配合 v-mark)
