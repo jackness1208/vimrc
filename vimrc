@@ -94,7 +94,7 @@ Plugin 'terryma/vim-multiple-cursors'
 "Plugin 'ervandew/supertab'
 
 " YouCompleteMe ----------------
-"Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 " mattn/emmet-vim --------------
 Plugin 'mattn/emmet-vim'
@@ -504,8 +504,9 @@ let mapleader=";"
 "# 设置NerdTree -------------------
 "map <F3> :NERDTreeMirror<CR>
 "map <F3> :NERDTreeToggle<CR>
-map <Leader>2 :NERDTreeMirror<CR>
-map <Leader>2 :NERDTreeToggle<CR>
+" map <Leader>2 :NERDTreeMirror<CR>
+" map <Leader>2 :NERDTreeToggle<CR>
+nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
 
 "# 设置YankRing -------------------
 map yr :YRShow<CR>
