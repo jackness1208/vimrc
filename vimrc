@@ -45,6 +45,7 @@ function MyDiff()
   endif
 endfunction
 
+
 " ======================================================
 " 预处理
 " ======================================================
@@ -73,75 +74,75 @@ call vundle#begin()
 " base -------------------------
 Plugin 'gmarik/Vundle.vim'
 
-"threme -----------------------
+"threme ------------------------
 Plugin 'sickill/vim-monokai'
+" Plugin 'vim-scripts/BusyBee'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
 
-" NERDtree ---------------------
+" 目录树 -----------------------
 Plugin 'scrooloose/nerdtree'
 
-" vim-startify -----------------
+" vim 开始界面 -----------------
 Plugin 'mhinz/vim-startify'
 
-
-" vim-multiple-cursors ---------
+" ctrl + d 选择多个 ------------
 Plugin 'terryma/vim-multiple-cursors'
 
-" ervandew/supertab ------------
-"Plugin 'ervandew/supertab'
-
-" YouCompleteMe ----------------
-" Plugin 'Valloric/YouCompleteMe'
-
-" mattn/emmet-vim --------------
-Plugin 'mattn/emmet-vim'
-
-" auto-pairs -------------------
+" 引号括号自动补全 -------------
 Plugin 'jiangmiao/auto-pairs'
 
 " ctags.vim [需额外装插件]------
 Plugin 'vim-scripts/ctags.vim'
 
-" ctrlsf.vim -------------------
-Plugin 'dyng/ctrlsf.vim'
-
-" ack [需额外装插件]------------
-" Plugin 'mileszs/ack.vim'
-
-" ag [需额外装插件]------------
-Plugin 'rking/ag.vim'
-
-
-
-" indentLine -------------------
-Plugin 'Yggdroot/indentLine'
-
-
- "nerdcommenter ----------------
-"Plugin 'scrooloose/nerdcommenter'
-
- "vim-commentary ---------------
-Plugin 'tpope/vim-commentary'
-
-" vim-scripts/Tagbar -----------
+" ctags 显示插件 ---------------
 Plugin 'majutsushi/tagbar'
 
-" jsbeautify -------------------
+
+" 搜索插件 gui  ----------------
+Plugin 'dyng/ctrlsf.vim'
+
+" 搜索插件 ack [需额外装插件]---
+" Plugin 'mileszs/ack.vim'
+
+" 搜索插件 ag [需额外装插件] ---
+Plugin 'rking/ag.vim'
+
+" 搜索插件 ---------------------
+Plugin 'vim-scripts/EasyGrep'
+
+
+" 对齐线 -----------------------
+Plugin 'Yggdroot/indentLine'
+
+" 代码注释 -----------------
+"Plugin 'scrooloose/nerdcommenter'
+
+" 代码注释 ---------------------
+Plugin 'tpope/vim-commentary'
+
+" js美化 -----------------------
 Plugin 'maksimr/vim-jsbeautify'
 
 " vim-css-color ----------------
 Plugin 'skammer/vim-css-color'
 
+" js 着色器 --------------------
+Plugin 'jelera/vim-javascript-syntax'
 
 
-" Visual-Mark ------------------
+
+
+" 书签插件 ---------------------
 Plugin 'vim-scripts/Visual-Mark'
 
-" vim-session ------------------
-Plugin 'xolox/vim-session'
+" session 插件 -----------------
+" Plugin 'xolox/vim-session'
+
+" 最近打开文件查看 -----------------
+Plugin 'yegappan/mru'
 
 " vim-misc ---------------------
 Plugin 'xolox/vim-misc'
@@ -152,20 +153,41 @@ Plugin 'xolox/vim-misc'
 " vim-surround -----------------
 "Plugin 'tpope/vim-surround'
 
-" jshint2.vim ------------------
+" 语法检测 ---------------------
 Plugin 'Shutnik/jshint2.vim'
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
 
-" EasyGrep ---------------------
-Plugin 'vim-scripts/EasyGrep'
-
-" YankRing.vim -----------------
+" copy plugin ------------------
 Plugin 'vim-scripts/YankRing.vim'
 
+" 自动补全插件 -----------------
+" Plugin 'Shougo/neocomplcache.vim'
 
+" 自动补全插件 -----------------
+" Plugin 'Shougo/neosnippet.vim'
 
+" 自动补全插件 -----------------
+" Plugin 'ervandew/supertab'
+
+" 自动补全插件 [需要安装]-------
+" Plugin 'Valloric/YouCompleteMe'
+
+" 自动补全插件 [需要lua]--------
+Plugin 'Shougo/neocomplete.vim'
+
+" 代码片段 [需要python] --------
+" Plugin 'tosc/neocomplete-ultisnips'
+
+" 代码片段 [需要python] --------
+Plugin 'SirVer/ultisnips'
+
+" 代码片段 snippets 文件包 -----
+Plugin 'honza/vim-snippets'
+
+" ctrlp -----
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -181,7 +203,12 @@ else
     let g:airline_powerline_fonts = 1
 endif
 
-"let g:airline_theme = 'powerlineish' 
+let g:airline_theme = 'badwolf'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
 
 " --------------------
 " # startify 
@@ -194,18 +221,15 @@ if MySys() == 'windows'
         \ 'G:\GitHub\vimrc\vimrc',
         \ 'D:\Program Files (x86)\vim\.jshintrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
-        \ 'G:\uc\github\nba-frontend',
-        \ 'G:\uc\github\nba-tasks',
         \]
 
 else 
     let g:startify_bookmarks = [
-        \ '/Applications/MacVim.app/Contents/Resources/vim/vimrc',
+        \ '/usr/local/opt/macvim/MacVim.app/Contents/Resources/vim/vimrc',
         \ '~/git/github/vimrc/vimrc',
         \ '/etc/hosts',
-        \ '~/git/uc/nba-frontend',
-        \ '~/git/uc/nba-tasks',
         \ '/Users/jackness/git/github/tool.jackness.org',
+        \ '/Users/jackness/git/github/node-jns',
         \]
 endif
 " 起始页显示的列表长度
@@ -220,12 +244,30 @@ let g:startify_custom_footer = [
    \'# 如果 session挂了 请输入 :OpenSession! default',
    \]
 
+"" --------------------
+" # startify 
+" --------------------
 " Default mapping 
 "let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_next_key='<C-d>' 
 let g:multi_cursor_prev_key='<C-p>' 
 let g:multi_cursor_skip_key='<C-x>' 
 let g:multi_cursor_quit_key='<Esc>'
+
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+  if exists(':NeoCompleteLock')==2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+  if exists(':NeoCompleteUnlock')==2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction
+
 
 " --------------------
 " # ctags 
@@ -268,33 +310,71 @@ let g:indentLine_leadingSpaceChar = '·'
 " --------------------
 " # emmet
 " --------------------
-"only enable normal mode functions.
-"let g:user_emmet_mode='n'
-"enable all functions, which is equal to
-let g:user_emmet_mode='inv'
-"enable all function in all mode.
-"let g:user_emmet_mode='a'
-let g:user_emmet_expandabbr_key = '<Tab>'
+" let g:user_emmet_mode='inv'
+" let g:user_emmet_expandabbr_key = '<Tab>'
 
-" 只在 html、css中运行
-let g:user_emmet_install_global = 0
-autocmd FileType html,css,smarty EmmetInstall
+" " 只在 html、css中运行
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css,smarty EmmetInstall
+" autocmd FileType html,css,smarty EmmetKeyBindHandle
 
 " 执行按钮
-let g:user_emmet_leader_key='<C-y>'
-
+" let g:user_emmet_leader_key='<C-y>'
 " --------------------
 " # ctrlSF 
 " --------------------
 let g:ctrlsf_ackprg = 'ag'
 let g:ctrlsf_context = '-B 5 -A 3'
 
+
+
 " --------------------
 " # ag
 " --------------------
 let g:ag_highlight=1
 
+" --------------------
+" # neocomplcache
+" --------------------
+"let g:neocomplcache_enable_at_startup = 1
+"let g:neocomplcache_enable_auto_select = 1
 
+" --------------------
+" # neocomplete
+" --------------------
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" --------------------
+" # UltiSnips
+" --------------------
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsSnippetDirectories=['UltiSnips']
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+" let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" imap <Tab> <c-k>
 
 " --------------------
 " # js beautify
@@ -305,6 +385,7 @@ autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
 autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+
 " --------------------
 " # nerdcommenter
 " --------------------
@@ -400,16 +481,19 @@ set noundofile
 " 配色方案
 syntax enable
 colorscheme monokai
+" colorscheme BusyBee
 
 " 配置折叠
 "set foldmethod=manual
-set foldmethod=indent
+" set foldmethod=indent
 " set foldmethod=syntax
+set foldmethod=marker
+set foldmarker=/{,/}
 " 启动 vim 时关闭折叠代码
 set nofoldenable
 
 " 字体
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
 "高亮光标所在行
 set cul
 set cuc
@@ -512,8 +596,22 @@ nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
 map yr :YRShow<CR>
 map <Leader>` :YRShow<CR>
 
+"# 设置neocomplcache -------------------
+
+"使用带force的选项，使一个键只帮一个作用。比较清爽
+"open the snippet
+" imap <silent><C-l> <Plug>(neocomplcache_snippets_force_expand)
+" smap <silent><C-l> <Plug>(neocomplcache_snippets_force_expand) 
+
+"jump to next placeholder
+" imap <silent><C-k> <Plug>(neocomplcache_snippets_force_jump)
+" smap <silent><C-k> <Plug>(neocomplcache_snippets_force_jump)
+
+" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>" 
+
 "# 设置emmet -------------------
-imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 "# 设置vim-indent-guides
 " 快捷键 i 开/关缩进可视化
@@ -521,6 +619,7 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 "# ctrlSF -------------------------
 nmap<S-F> :CtrlSF 
+vmap<S-F> y:CtrlSF <c-r>0
 
 "# tagbar -------------------------
 "nmap<F4> :TagbarToggle<CR>
@@ -528,6 +627,10 @@ nmap<Leader>3 :TagbarToggle<CR>
 "# startify -----------------------
 "nmap<F5> :tabnew<CR>:Startify<CR>
 nmap<Leader>1 :tabnew<CR>:Startify<CR>
+
+"# MRU -----------------------
+nmap<Leader>4 :MRU<CR>
+
 "# 代码注释 -----------------------
 if MySys() == "windows" 
     vmap <C-/> gc
@@ -563,8 +666,12 @@ nmap <BS> i<BS><Esc>
 " 定义快捷键到行首和行尾
 map <Leader>b ^
 map <Leader>e $
+vmap <Leader>e $h
+
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
+"" 设置快捷键将选中文本块剪切至系统剪贴板
+vnoremap <Leader>d "+d
 " 设置快捷键将系统剪贴板内容粘贴至 vim
 nmap <Leader>p "+p
 " 定义快捷键关闭当前分割窗口
@@ -581,8 +688,10 @@ nnoremap tn :tabn<CR>
 nnoremap tp :tabp<CR>
 " 依次遍历子窗口
 nnoremap wn <C-W><C-W>
+" 前一个子窗口
+nnoremap wp <C-W>p
 " 依次遍历marks(要配合 v-mark)
-nnoremap mn <F2>
+map mn <F2>
 " 跳转至右方的窗口
 nnoremap wl <C-W>l
 " 跳转至左方的窗口
@@ -593,6 +702,7 @@ nnoremap wk <C-W>k
 nnoremap wj <C-W>j
 " 上下分割当前文件
 nmap ws <C-w>s
+nmap w2 <C-w>s
 " 左右分割当前文件
 nmap wv <C-w>v
 
@@ -604,4 +714,24 @@ nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
 
+
+" 打开文件
+if MySys() == 'windows'
+    nmap <Leader>o :! explorer %:p:h<CR><CR>
+else
+    nmap <Leader>o :! open %:p:h<CR><CR>
+endif
+
+" 注释
+map zz v<Leader>b<Leader>e%zf
+
+" 选中区域加双引号
+vmap " di"<Esc>p
+vmap ' di'<Esc>p
+vmap ( di(<Esc>p
+vmap [ di[<Esc>p
+vmap { di{<Esc>p
+
+" 搜索选中的内容
+vmap / y/<c-r>0
 
