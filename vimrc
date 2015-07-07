@@ -743,11 +743,11 @@ endif
 map zz v<Leader>b<Leader>e%zf
 
 " 选中区域加双引号
-vmap " da"<Esc>p
-vmap ' da'<Esc>p
-vmap ( da(<Esc>p
-vmap [ da[<Esc>p
-vmap { da{<Esc>p
+vmap " di"<Esc>p
+vmap ' di'<Esc>p
+vmap ( di(<Esc>p
+vmap [ di[<Esc>p
+vmap { di{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0
