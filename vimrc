@@ -76,7 +76,7 @@ Plugin 'gmarik/Vundle.vim'
 
 "threme ------------------------
 Plugin 'sickill/vim-monokai'
-" Plugin 'vim-scripts/BusyBee'
+Plugin 'vim-scripts/BusyBee'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
@@ -131,6 +131,11 @@ Plugin 'skammer/vim-css-color'
 
 " js 着色器 --------------------
 Plugin 'jelera/vim-javascript-syntax'
+" Plugin 'vim-scripts/jQuery'
+
+" js 支持插件 --------------------
+Plugin 'pangloss/vim-javascript'
+
 
 
 
@@ -139,7 +144,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'vim-scripts/Visual-Mark'
 
 " session 插件 -----------------
-" Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-session'
 
 " 最近打开文件查看 -----------------
 Plugin 'yegappan/mru'
@@ -217,9 +222,10 @@ let g:airline_right_sep = ''
 "
 if MySys() == 'windows'
     let g:startify_bookmarks = [
-        \ 'D:\Program Files (x86)\vim\_vimrc',
-        \ 'G:\GitHub\vimrc\vimrc',
-        \ 'D:\Program Files (x86)\vim\.jshintrc',
+        \ 'D:\Program Files\Vim\vimrc',
+        \ 'F:\github\vimrc\vimrc',
+        \ 'F:\github\node-jns',
+        \ 'F:\svn\yy-music\web\dev\trunk\src\WebServer_Manage',
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
@@ -348,7 +354,7 @@ let g:neocomplete#enable_auto_select = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 4
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
@@ -374,6 +380,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 " let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" autocmd FileType html,smarty imap <Tab> <c-k>
+ 
 " imap <Tab> <c-k>
 
 " --------------------
@@ -480,8 +489,8 @@ set noundofile
 
 " 配色方案
 syntax enable
-colorscheme monokai
-" colorscheme BusyBee
+" colorscheme monokai
+colorscheme BusyBee
 
 " 配置折叠
 "set foldmethod=manual
@@ -493,8 +502,12 @@ set foldmarker=/{,/}
 set nofoldenable
 
 " 字体
-set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
-"高亮光标所在行
+if MySys() == 'windows'
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
+else
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
+endif
+ "高亮光标所在行
 set cul
 set cuc
 
@@ -595,6 +608,10 @@ nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
 "# 设置YankRing -------------------
 map yr :YRShow<CR>
 map <Leader>` :YRShow<CR>
+
+"# 设置 neocomplete -------------------
+imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 
 "# 设置neocomplcache -------------------
 
@@ -726,12 +743,13 @@ endif
 map zz v<Leader>b<Leader>e%zf
 
 " 选中区域加双引号
-vmap " di"<Esc>p
-vmap ' di'<Esc>p
-vmap ( di(<Esc>p
-vmap [ di[<Esc>p
-vmap { di{<Esc>p
+vmap " da"<Esc>p
+vmap ' da'<Esc>p
+vmap ( da(<Esc>p
+vmap [ da[<Esc>p
+vmap { da{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0
+
 
