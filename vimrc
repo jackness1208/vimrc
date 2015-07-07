@@ -508,8 +508,8 @@ else
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
 endif
  "高亮光标所在行
-set cul
-set cuc
+" set cul
+" set cuc
 
 " 禁止光标闪烁
 "set gcr=a:block-blinkon0
