@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.5.16
+" Last Change:  2015.7.17
 
 
 " ======================================================
@@ -84,6 +84,7 @@ Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " vim 开始界面 -----------------
 Plugin 'mhinz/vim-startify'
@@ -225,7 +226,8 @@ if MySys() == 'windows'
         \ 'D:\Program Files\Vim\vimrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
-        \ 'F:\svn\yy-music\web\dev\trunk\src\WebServer_Manage',
+        \ 'F:\svn\svn.yy.com\yy-music\web\dev\trunk\src\WebServer_Manage',
+        \ 'F:\svn\svn.yy.com\yy-music\web-dragon\star-fans\tieba',
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
@@ -420,6 +422,8 @@ let g:session_autoload='yes'
 " ======================================================
 " # 系统设置
 " ======================================================
+" 自动设置当前编辑的文件为工作路径
+set autochdir
 set showcmd
 
 set nocompatible
@@ -508,7 +512,7 @@ else
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
 endif
  "高亮光标所在行
-" set cul
+set cul
 " set cuc
 
 " 禁止光标闪烁
@@ -750,6 +754,8 @@ vmap [ di[<Esc>p
 vmap { di{<Esc>p
 
 " 搜索选中的内容
-vmap / y/<c-r>0
+vmap / y/<c-r>0<CR>
+
+
 
 
