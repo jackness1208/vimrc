@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.5.16
+" Last Change:  2015.7.31
 
 
 " ======================================================
@@ -44,6 +44,12 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
+
+
+
+
+
 
 " ======================================================
 " 预处理
@@ -144,7 +150,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/Visual-Mark'
 
 " session 插件 -----------------
-" Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-session'
 " Plugin 'vim-scripts/sessionman.vim'
 
 " 最近打开文件查看 -----------------
@@ -413,12 +419,12 @@ let NERD_html_alt_style=1
 " # session
 " --------------------
 " 自动保存session
-let g:session_autosave='yes'
+let g:session_autosave='no'
 " 每隔 5 分钟 保存一次 session
-let g:session_autosave_periodic=5
+" let g:session_autosave_periodic=5
 " 打开vim自动载入上次 session 
-let g:session_default_to_last='yes'
-let g:session_autoload='yes'
+let g:session_default_to_last='no'
+let g:session_autoload='no'
 
 
 " ======================================================
@@ -657,6 +663,10 @@ nmap<Leader>1 :tabnew<CR>:Startify<CR>
 "# MRU -----------------------
 nmap<Leader>4 :MRU<CR>
 
+"# session-vim -----------------------
+map <Leader>ss :SaveSession<cr>
+map <Leader>rs :OpenSession<cr>
+
 "# 代码注释 -----------------------
 if MySys() == "windows" 
     vmap <C-/> gc
@@ -710,8 +720,13 @@ nmap <Leader>WQ :wa<CR>:q<CR>
 nmap <Leader>Q :qa!<CR>
 " 依次遍历tab
 nnoremap tn :tabn<CR>
-"" 依次遍历tab
+" 依次遍历tab
 nnoremap tp :tabp<CR>
+" 依次遍历 buffer
+nnoremap bn :bnext<CR>
+" 依次遍历 buffer
+nnoremap bp :bprev<CR>
+
 " 依次遍历子窗口
 nnoremap wn <C-W><C-W>
 " 前一个子窗口
@@ -762,6 +777,7 @@ vmap { di{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0<CR>
+
 
 
 
