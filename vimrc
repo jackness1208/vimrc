@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.7.17
+" Last Change:  2015.5.16
 
 
 " ======================================================
@@ -44,7 +44,6 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
-
 
 " ======================================================
 " 预处理
@@ -96,10 +95,10 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 
 " ctags.vim [需额外装插件]------
-Plugin 'vim-scripts/ctags.vim'
+" Plugin 'vim-scripts/ctags.vim'
 
 " ctags 显示插件 ---------------
-Plugin 'majutsushi/tagbar'
+" Plugin 'majutsushi/tagbar'
 
 
 " 搜索插件 gui  ----------------
@@ -145,7 +144,8 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'vim-scripts/Visual-Mark'
 
 " session 插件 -----------------
-Plugin 'xolox/vim-session'
+" Plugin 'xolox/vim-session'
+" Plugin 'vim-scripts/sessionman.vim'
 
 " 最近打开文件查看 -----------------
 Plugin 'yegappan/mru'
@@ -210,9 +210,10 @@ else
 endif
 
 let g:airline_theme = 'badwolf'
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 
@@ -227,7 +228,7 @@ if MySys() == 'windows'
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \ 'F:\svn\svn.yy.com\yy-music\web\dev\trunk\src\WebServer_Manage',
-        \ 'F:\svn\svn.yy.com\yy-music\web-dragon\star-fans\tieba',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
@@ -252,7 +253,7 @@ let g:startify_custom_footer = [
    \'# 如果 session挂了 请输入 :OpenSession! default',
    \]
 
-"" --------------------
+" --------------------
 " # startify 
 " --------------------
 " Default mapping 
@@ -280,20 +281,20 @@ endfunction
 " --------------------
 " # ctags 
 " --------------------
-" 按照名称排序  
-let Tlist_Sort_Type = "name"   
-" 在右侧显示窗口  
-"let Tlist_Use_Right_Window = 1  
-" 压缩方式 
-let Tlist_Compart_Format = 1 
-" 如果只有一个buffer，kill窗口也kill掉buffer"
-let Tlist_Exist_OnlyWindow = 1    
-" 不要关闭其他文件的tags  
-let Tlist_File_Fold_Auto_Close = 0 
-" 不要显示折叠树  
-let Tlist_Enable_Fold_Column = 0 
-"不同时显示多个文件的tag，只显示当前文件的
-let Tlist_Show_One_File=1      
+" " 按照名称排序  
+" let Tlist_Sort_Type = "name"   
+" " 在右侧显示窗口  
+" "let Tlist_Use_Right_Window = 1  
+" " 压缩方式 
+" let Tlist_Compart_Format = 1 
+" " 如果只有一个buffer，kill窗口也kill掉buffer"
+" let Tlist_Exist_OnlyWindow = 1    
+" " 不要关闭其他文件的tags  
+" let Tlist_File_Fold_Auto_Close = 0 
+" " 不要显示折叠树  
+" let Tlist_Enable_Fold_Column = 0 
+" "不同时显示多个文件的tag，只显示当前文件的
+" let Tlist_Show_One_File=1      
 
 " --------------------
 " # NERDTree 
@@ -419,9 +420,13 @@ let g:session_autosave_periodic=5
 let g:session_default_to_last='yes'
 let g:session_autoload='yes'
 
+
 " ======================================================
 " # 系统设置
 " ======================================================
+
+" 优化标签页
+set guitablabel=%t
 " 自动设置当前编辑的文件为工作路径
 set autochdir
 set showcmd
@@ -735,6 +740,8 @@ nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
 
+" 括号匹配
+map <Leader><Leader> %
 
 " 打开文件
 if MySys() == 'windows'
