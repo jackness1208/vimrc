@@ -157,7 +157,7 @@ Plugin 'xolox/vim-session'
 Plugin 'yegappan/mru'
 
 " vim-misc ---------------------
-Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-misc'
 
 " Recover.vim ------------------
 "Plugin 'chrisbra/Recover.vim'
@@ -233,9 +233,9 @@ if MySys() == 'windows'
         \ 'D:\Program Files\Vim\vimrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
-        \ 'F:\svn\svn.yy.com\yy-music\web\dev\trunk\src\WebServer_Manage',
+        \ 'F:\svn\svn.yy.com\yy-music-呵呵\web\dev\trunk\src\WebServer_Manage',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
-        \ 'C:\Windows\System32\drivers\etc\hosts',
+        \ 'C:\Windows\System2\drivers\etc\hosts',
         \]
 
 else 
@@ -283,6 +283,12 @@ function! Multiple_cursors_after()
   endif
 endfunction
 
+" --------------------
+" # vim-commentary 
+" --------------------
+" 设置Python注释字符
+autocmd FileType python,shell set commentstring=#\ %s
+autocmd FileType mako set cms=##\ %s
 
 " --------------------
 " # ctags 
@@ -293,7 +299,7 @@ endfunction
 " "let Tlist_Use_Right_Window = 1  
 " " 压缩方式 
 " let Tlist_Compart_Format = 1 
-" " 如果只有一个buffer，kill窗口也kill掉buffer"
+" " 如果只有一个buffer，kill窗口也kill掉buffer
 " let Tlist_Exist_OnlyWindow = 1    
 " " 不要关闭其他文件的tags  
 " let Tlist_File_Fold_Auto_Close = 0 
@@ -312,7 +318,9 @@ endfunction
 function! NERDTree_IsValid()
     return 1
 endfunction
-
+" set ignore filetype
+" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
 " --------------------
 " # tagbar
 " --------------------
@@ -419,17 +427,27 @@ let NERD_html_alt_style=1
 " # session
 " --------------------
 " 自动保存session
-let g:session_autosave='no'
+let g:session_autosave='yes'
 " 每隔 5 分钟 保存一次 session
-" let g:session_autosave_periodic=5
+let g:session_autosave_periodic=5
 " 打开vim自动载入上次 session 
-let g:session_default_to_last='no'
-let g:session_autoload='no'
+let g:session_default_to_last='yes'
+let g:session_autoload='yes'
 
 
 " ======================================================
 " # 系统设置
 " ======================================================
+
+" 插入模式下用绝对行号, 普通模式下用相对
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+
+" 禁止自动换行
+set tw=0
+
+set lazyredraw
+set ttyfast
 
 " 优化标签页
 set guitablabel=%t
@@ -532,8 +550,8 @@ set cul
 set number
 
 " 自动缩进
-set autoindent
-set smartindent
+" set autoindent
+" set smartindent
 
 " Tab键的宽度
 set tabstop=4
@@ -619,6 +637,8 @@ let mapleader=";"
 " map <Leader>2 :NERDTreeMirror<CR>
 " map <Leader>2 :NERDTreeToggle<CR>
 nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
+
+
 
 "# 设置YankRing -------------------
 map yr :YRShow<CR>
@@ -748,7 +768,7 @@ nmap w2 <C-w>s
 nmap wv <C-w>v
 
 " 定义快捷键在结对符之间跳转，助记pair
-nmap <Leader>pa %
+" nmap <Leader>pa %
 
 " 删除到行未
 nmap <Leader>de d$
@@ -756,7 +776,7 @@ nmap <Leader>de d$
 nmap <Leader>db d0
 
 " 括号匹配
-map <Leader><Leader> %
+map <Leader>a %
 
 " 打开文件
 if MySys() == 'windows'
@@ -777,6 +797,7 @@ vmap { di{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0<CR>
+
 
 
 
