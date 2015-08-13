@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.7.31
+" Last Change:  2015.8.13
 
 
 " ======================================================
@@ -151,13 +151,12 @@ Plugin 'vim-scripts/Visual-Mark'
 
 " session 插件 -----------------
 Plugin 'xolox/vim-session'
+Plugin 'xolox/vim-misc'
 " Plugin 'vim-scripts/sessionman.vim'
 
 " 最近打开文件查看 -----------------
 Plugin 'yegappan/mru'
 
-" vim-misc ---------------------
-" Plugin 'xolox/vim-misc'
 
 " Recover.vim ------------------
 "Plugin 'chrisbra/Recover.vim'
@@ -233,6 +232,7 @@ if MySys() == 'windows'
         \ 'D:\Program Files\Vim\vimrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
+        \ 'F:\github\fullslide',
         \ 'F:\svn\svn.yy.com\yy-music-呵呵\web\dev\trunk\src\WebServer_Manage',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
         \ 'C:\Windows\System2\drivers\etc\hosts',
@@ -264,10 +264,15 @@ let g:startify_custom_footer = [
 " --------------------
 " Default mapping 
 "let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-d>' 
-let g:multi_cursor_prev_key='<C-p>' 
-let g:multi_cursor_skip_key='<C-x>' 
-let g:multi_cursor_quit_key='<Esc>'
+if MySys() == 'windows'
+    let g:multi_cursor_next_key='<C-d>' 
+    let g:multi_cursor_prev_key='<C-p>' 
+    let g:multi_cursor_skip_key='<C-x>' 
+else
+    let g:multi_cursor_next_key='<D-d>' 
+    let g:multi_cursor_prev_key='<D-p>' 
+    let g:multi_cursor_skip_key='<D-x>' 
+endif
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
@@ -685,7 +690,7 @@ nmap<Leader>4 :MRU<CR>
 
 "# session-vim -----------------------
 map <Leader>ss :SaveSession<cr>
-map <Leader>rs :OpenSession<cr>
+map <Leader>rs :OpenSession! default<cr>
 
 "# 代码注释 -----------------------
 if MySys() == "windows" 
@@ -718,7 +723,12 @@ endif
 nmap <CR> i<CR><Esc>
 nmap <BS> i<BS><Esc>
 
-
+" 插入模式 黏贴 yank 内容
+if MySys() == 'windows' 
+    imap <C-p> <C-r>0
+else
+    imap <D-p> <C-r>0
+endif
 " 定义快捷键到行首和行尾
 map <Leader>b ^
 map <Leader>e $
@@ -797,6 +807,7 @@ vmap { di{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0<CR>
+
 
 
 
