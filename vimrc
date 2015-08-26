@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.8.13
+" Last Change:  2015.8.24
 
 
 " ======================================================
@@ -445,8 +445,8 @@ let g:session_autoload='yes'
 " ======================================================
 
 " 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+" autocmd InsertEnter * :set norelativenumber number
+" autocmd InsertLeave * :set relativenumber
 
 " 禁止自动换行
 set tw=0
@@ -777,6 +777,9 @@ nmap w2 <C-w>s
 " 左右分割当前文件
 nmap wv <C-w>v
 
+map <Leader>rn :set relativenumber<CR>
+map <Leader>nn :set norelativenumber<CR>
+
 " 定义快捷键在结对符之间跳转，助记pair
 " nmap <Leader>pa %
 
@@ -790,7 +793,7 @@ map <Leader>a %
 
 " 打开文件
 if MySys() == 'windows'
-    nmap <Leader>o :! explorer %:p:h<CR><CR>
+    nmap <Leader>o :! explorer /select,  %:p<CR><CR>
 else
     nmap <Leader>o :! open %:p:h<CR><CR>
 endif
