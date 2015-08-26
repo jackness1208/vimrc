@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.8.24
+" Last Change:  2015.8.26
 
 
 " ======================================================
@@ -324,8 +324,8 @@ function! NERDTree_IsValid()
     return 1
 endfunction
 " set ignore filetype
-" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
-let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
+" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
 " --------------------
 " # tagbar
 " --------------------
@@ -689,7 +689,7 @@ nmap<Leader>1 :tabnew<CR>:Startify<CR>
 nmap<Leader>4 :MRU<CR>
 
 "# session-vim -----------------------
-map <Leader>ss :SaveSession<cr>
+map <Leader>ss :SaveSession! default<cr>
 map <Leader>rs :OpenSession! default<cr>
 
 "# 代码注释 -----------------------
@@ -810,6 +810,7 @@ vmap { di{<Esc>p
 
 " 搜索选中的内容
 vmap / y/<c-r>0<CR>
+
 
 
 
