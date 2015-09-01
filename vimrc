@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.8.26
+" Last Change:  2015.9.1
 
 
 " ======================================================
@@ -264,15 +264,9 @@ let g:startify_custom_footer = [
 " --------------------
 " Default mapping 
 "let g:multi_cursor_use_default_mapping=0
-if MySys() == 'windows'
-    let g:multi_cursor_next_key='<C-d>' 
-    let g:multi_cursor_prev_key='<C-p>' 
-    let g:multi_cursor_skip_key='<C-x>' 
-else
-    let g:multi_cursor_next_key='<D-d>' 
-    let g:multi_cursor_prev_key='<D-p>' 
-    let g:multi_cursor_skip_key='<D-x>' 
-endif
+let g:multi_cursor_next_key='<C-d>' 
+let g:multi_cursor_prev_key='<C-p>' 
+let g:multi_cursor_skip_key='<C-x>' 
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
@@ -557,6 +551,8 @@ set number
 " 自动缩进
 " set autoindent
 " set smartindent
+set noai
+set nosmartindent
 
 " Tab键的宽度
 set tabstop=4
