@@ -81,6 +81,7 @@ Plugin 'gmarik/Vundle.vim'
 
 "threme ------------------------
 Plugin 'sickill/vim-monokai'
+Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
 
 " status bar -------------------
@@ -521,8 +522,8 @@ set noundofile
 
 " 配色方案
 syntax enable
-" colorscheme monokai
-colorscheme BusyBee
+colorscheme monokai
+" colorscheme BusyBee
 
 " 配置折叠
 "set foldmethod=manual
@@ -541,7 +542,7 @@ else
 endif
  "高亮光标所在行
 set cul
-" set cuc
+set cuc
 
 " 禁止光标闪烁
 "set gcr=a:block-blinkon0
@@ -807,9 +808,12 @@ vmap { di{<Esc>p
 " 搜索选中的内容
 vmap / y/<c-r>0<CR>
 
-
-
-
+" 马上让vim配置文件生效
+if MySys() == 'windows'
+    map <Leader>rv :source $VIM/vimrc<CR><CR>
+else
+    map <Leader>rv :source ~/_vimrc
+endif
 
 
 
