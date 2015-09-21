@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.9.1
+" Last Change:  2015.9.21
 
 
 " ======================================================
@@ -184,10 +184,12 @@ Plugin 'vim-scripts/YankRing.vim'
 " Plugin 'ervandew/supertab'
 
 " 自动补全插件 [需要安装]-------
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
+" ycm js支持 [需要安装]-------
+Plugin 'marijnh/tern_for_vim'
 
 " 自动补全插件 [需要lua]--------
-Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
 
 " 代码片段 [需要python] --------
 " Plugin 'tosc/neocomplete-ultisnips'
@@ -230,7 +232,7 @@ let g:airline_right_sep = ''
 "
 if MySys() == 'windows'
     let g:startify_bookmarks = [
-        \ 'D:\Program Files\Vim\vimrc',
+        \ 'C:\Program Files\Vim\_vimrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \ 'F:\github\fullslide',
@@ -386,6 +388,21 @@ if !exists('g:neocomplete#keyword_patterns')
     let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" --------------------
+" # youcompleteme
+" --------------------
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'markdown' : 1,
+      \ 'unite' : 1,
+      \ 'text' : 1,
+      \ 'vimwiki' : 1,
+      \ 'gitcommit' : 1,
+      \}
+
 " --------------------
 " # UltiSnips
 " --------------------
@@ -689,6 +706,11 @@ nmap<Leader>4 :MRU<CR>
 map <Leader>ss :SaveSession! default<cr>
 map <Leader>rs :OpenSession! default<cr>
 
+"# ycm -----------------------
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 "# 代码注释 -----------------------
 if MySys() == "windows" 
     vmap <C-/> gc
@@ -810,10 +832,11 @@ vmap / y/<c-r>0<CR>
 
 " 马上让vim配置文件生效
 if MySys() == 'windows'
-    map <Leader>rv :source $VIM/vimrc<CR><CR>
+    map <Leader>rv :source $VIM/_vimrc<CR><CR>
 else
     map <Leader>rv :source ~/_vimrc
 endif
+
 
 
 
