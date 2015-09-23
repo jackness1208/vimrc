@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.9.21
+" Last Change:  2015.9.23
 
 
 " ======================================================
@@ -104,9 +104,6 @@ Plugin 'jiangmiao/auto-pairs'
 " ctags.vim [需额外装插件]------
 " Plugin 'vim-scripts/ctags.vim'
 
-" ctags 显示插件 ---------------
-" Plugin 'majutsushi/tagbar'
-
 
 " 搜索插件 gui  ----------------
 Plugin 'dyng/ctrlsf.vim'
@@ -138,17 +135,18 @@ Plugin 'skammer/vim-css-color'
 
 " js 着色器 --------------------
 Plugin 'jelera/vim-javascript-syntax'
+" html 着色器 --------------------
+Plugin 'othree/html5.vim'
+
 " Plugin 'vim-scripts/jQuery'
 
 " js 支持插件 --------------------
 Plugin 'pangloss/vim-javascript'
 
-
-
-
-
 " 书签插件 ---------------------
-Plugin 'vim-scripts/Visual-Mark'
+" Plugin 'vim-scripts/Visual-Mark'
+Plugin 'MattesGroeger/vim-bookmarks'
+
 
 " session 插件 -----------------
 Plugin 'xolox/vim-session'
@@ -174,8 +172,6 @@ Plugin 'Shutnik/jshint2.vim'
 " copy plugin ------------------
 Plugin 'vim-scripts/YankRing.vim'
 
-" 自动补全插件 -----------------
-" Plugin 'Shougo/neocomplcache.vim'
 
 " 自动补全插件 -----------------
 " Plugin 'Shougo/neosnippet.vim'
@@ -184,7 +180,14 @@ Plugin 'vim-scripts/YankRing.vim'
 " Plugin 'ervandew/supertab'
 
 " 自动补全插件 [需要安装]-------
-Plugin 'Valloric/YouCompleteMe'
+if has("win64")
+    Plugin 'snakeleon/YouCompleteMe-x64'
+elseif has("win32")
+    Plugin 'snakeleon/YouCompleteMe-x86'
+else
+    Plugin 'Valloric/YouCompleteMe'
+endif
+
 " ycm js支持 [需要安装]-------
 Plugin 'marijnh/tern_for_vim'
 
@@ -200,257 +203,11 @@ Plugin 'SirVer/ultisnips'
 " 代码片段 snippets 文件包 -----
 Plugin 'honza/vim-snippets'
 
-" ctrlp -----
+" ctrlp ------------------------
 Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
-
-
-" --------------------
-" # airline 
-" --------------------
-set laststatus=2
-if MySys() == 'windows'
-    let g:airline_powerline_fonts = 0
-else
-    let g:airline_powerline_fonts = 1
-endif
-
-let g:airline_theme = 'badwolf'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-
-" --------------------
-" # startify 
-" --------------------
-" 设置书签
-"
-if MySys() == 'windows'
-    let g:startify_bookmarks = [
-        \ 'C:\Program Files\Vim\_vimrc',
-        \ 'F:\github\vimrc\vimrc',
-        \ 'F:\github\node-jns',
-        \ 'F:\github\fullslide',
-        \ 'F:\svn\svn.yy.com\yy-music-呵呵\web\dev\trunk\src\WebServer_Manage',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
-        \ 'C:\Windows\System2\drivers\etc\hosts',
-        \]
-
-else 
-    let g:startify_bookmarks = [
-        \ '/usr/local/opt/macvim/MacVim.app/Contents/Resources/vim/vimrc',
-        \ '~/git/github/vimrc/vimrc',
-        \ '/etc/hosts',
-        \ '/Users/jackness/git/github/tool.jackness.org',
-        \ '/Users/jackness/git/github/node-jns',
-        \]
-endif
-" 起始页显示的列表长度
-let g:startify_files_number = 5
-let g:startify_custom_header = [
-   \'# 传说中最牛逼的编辑器在此 ~(≥▽≤)/~ ',
-   \'-----------------------------------------',
-   \]
-let g:startify_custom_footer = [
-   \'-----------------------------------------',
-   \'# good good study, day day up ╭（′▽｀）╯ ',
-   \'# 如果 session挂了 请输入 :OpenSession! default',
-   \]
-
-" --------------------
-" # startify 
-" --------------------
-" Default mapping 
-"let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-d>' 
-let g:multi_cursor_prev_key='<C-p>' 
-let g:multi_cursor_skip_key='<C-x>' 
-
-" Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
-
-" Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
-
-" --------------------
-" # vim-commentary 
-" --------------------
-" 设置Python注释字符
-autocmd FileType python,shell set commentstring=#\ %s
-autocmd FileType mako set cms=##\ %s
-
-" --------------------
-" # ctags 
-" --------------------
-" " 按照名称排序  
-" let Tlist_Sort_Type = "name"   
-" " 在右侧显示窗口  
-" "let Tlist_Use_Right_Window = 1  
-" " 压缩方式 
-" let Tlist_Compart_Format = 1 
-" " 如果只有一个buffer，kill窗口也kill掉buffer
-" let Tlist_Exist_OnlyWindow = 1    
-" " 不要关闭其他文件的tags  
-" let Tlist_File_Fold_Auto_Close = 0 
-" " 不要显示折叠树  
-" let Tlist_Enable_Fold_Column = 0 
-" "不同时显示多个文件的tag，只显示当前文件的
-" let Tlist_Show_One_File=1      
-
-" --------------------
-" # NERDTree 
-" --------------------
-let g:NERDTree_title='[NERD Tree]'
-function! NERDTree_Start()
-    exec 'NERDTree'
-endfunction
-function! NERDTree_IsValid()
-    return 1
-endfunction
-" set ignore filetype
-let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
-" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
-" --------------------
-" # tagbar
-" --------------------
-let g:tagbar_width=30
-
-" --------------------
-" # indentLine
-" --------------------
-let g:indentLine_leadingSpaceChar = '·'
-" --------------------
-" # emmet
-" --------------------
-" let g:user_emmet_mode='inv'
-" let g:user_emmet_expandabbr_key = '<Tab>'
-
-" " 只在 html、css中运行
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css,smarty EmmetInstall
-" autocmd FileType html,css,smarty EmmetKeyBindHandle
-
-" 执行按钮
-" let g:user_emmet_leader_key='<C-y>'
-" --------------------
-" # ctrlSF 
-" --------------------
-let g:ctrlsf_ackprg = 'ag'
-let g:ctrlsf_context = '-B 5 -A 3'
-
-
-
-" --------------------
-" # ag
-" --------------------
-let g:ag_highlight=1
-
-" --------------------
-" # neocomplcache
-" --------------------
-"let g:neocomplcache_enable_at_startup = 1
-"let g:neocomplcache_enable_auto_select = 1
-
-" --------------------
-" # neocomplete
-" --------------------
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 4
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" --------------------
-" # youcompleteme
-" --------------------
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'gitcommit' : 1,
-      \}
-
-" --------------------
-" # UltiSnips
-" --------------------
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsSnippetDirectories=['UltiSnips']
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-" let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" autocmd FileType html,smarty imap <Tab> <c-k>
- 
-" imap <Tab> <c-k>
-
-" --------------------
-" # js beautify
-" --------------------
-map <c-j> :call JsBeautify()<cr>
-autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
-" for html
-autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
-
-" --------------------
-" # nerdcommenter
-" --------------------
-let g:NERDCustomDelimiters = {
-    \ 'html': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/' },
-    \ 'xhtml': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/'},
-    \'vimperator': { 'left': '"' },
-\}
-let NERD_html_alt_style=1
-
-
-" --------------------
-" # session
-" --------------------
-" 自动保存session
-let g:session_autosave='yes'
-" 每隔 5 分钟 保存一次 session
-let g:session_autosave_periodic=5
-" 打开vim自动载入上次 session 
-let g:session_default_to_last='yes'
-let g:session_autoload='yes'
-
 
 " ======================================================
 " # 系统设置
@@ -634,92 +391,15 @@ set viminfo+=!
 " 带有如下符号的单词不要被换行分割
 set iskeyword+=_,$,@,%,#,-
 
-
 "======================================================
 " 快捷键设置
 "======================================================
 
-
-" 干掉系统默认快捷键
-"if has("gui_running")
-"  macmenu Edit.Find.Find\.\.\. key=<nop>
-"endif
 " 定义快捷键的前缀，即<Leader>
 let mapleader=";"
 "set notimeout
 "set ttimeout
 
-
-"# 设置NerdTree -------------------
-"map <F3> :NERDTreeMirror<CR>
-"map <F3> :NERDTreeToggle<CR>
-" map <Leader>2 :NERDTreeMirror<CR>
-" map <Leader>2 :NERDTreeToggle<CR>
-nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
-
-
-
-"# 设置YankRing -------------------
-map yr :YRShow<CR>
-map <Leader>` :YRShow<CR>
-
-"# 设置 neocomplete -------------------
-imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
-"# 设置neocomplcache -------------------
-
-"使用带force的选项，使一个键只帮一个作用。比较清爽
-"open the snippet
-" imap <silent><C-l> <Plug>(neocomplcache_snippets_force_expand)
-" smap <silent><C-l> <Plug>(neocomplcache_snippets_force_expand) 
-
-"jump to next placeholder
-" imap <silent><C-k> <Plug>(neocomplcache_snippets_force_jump)
-" smap <silent><C-k> <Plug>(neocomplcache_snippets_force_jump)
-
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>" 
-
-"# 设置emmet -------------------
-" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-
-"# 设置vim-indent-guides
-" 快捷键 i 开/关缩进可视化
-nmap <silent> <Leader>i <Plug>IndentGuidesToggle
-
-"# ctrlSF -------------------------
-nmap<S-F> :CtrlSF 
-vmap<S-F> y:CtrlSF <c-r>0
-
-"# tagbar -------------------------
-"nmap<F4> :TagbarToggle<CR>
-nmap<Leader>3 :TagbarToggle<CR>
-"# startify -----------------------
-"nmap<F5> :tabnew<CR>:Startify<CR>
-nmap<Leader>1 :tabnew<CR>:Startify<CR>
-
-"# MRU -----------------------
-nmap<Leader>4 :MRU<CR>
-
-"# session-vim -----------------------
-map <Leader>ss :SaveSession! default<cr>
-map <Leader>rs :OpenSession! default<cr>
-
-"# ycm -----------------------
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-"# 代码注释 -----------------------
-if MySys() == "windows" 
-    vmap <C-/> gc
-    nmap <C-/> gcc
-else
-    vmap <D-/> gc
-    nmap <D-/> gcc
-
-endif
 
 " "# 代码缩进 -----------------------
 vmap <Tab> >gv
@@ -780,8 +460,6 @@ nnoremap bp :bprev<CR>
 nnoremap wn <C-W><C-W>
 " 前一个子窗口
 nnoremap wp <C-W>p
-" 依次遍历marks(要配合 v-mark)
-map mn <F2>
 " 跳转至右方的窗口
 nnoremap wl <C-W>l
 " 跳转至左方的窗口
@@ -840,4 +518,339 @@ endif
 
 
 
+" ======================================================
+" # 插件设置
+" ======================================================
+
+
+" ----------------------------------------
+" # airline 
+" ----------------------------------------
+set laststatus=2
+if MySys() == 'windows'
+    let g:airline_powerline_fonts = 0
+else
+    let g:airline_powerline_fonts = 1
+endif
+
+let g:airline_theme = 'badwolf'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+" ----------------------------------------
+" # startify 
+" ----------------------------------------
+" 设置书签
+if MySys() == 'windows'
+    let g:startify_bookmarks = [
+        \ 'C:\Program Files\Vim\_vimrc',
+        \ 'F:\github\vimrc\vimrc',
+        \ 'F:\github\node-jns',
+        \ 'F:\github\fullslide',
+        \ 'F:\svn\svn.yy.com\yy-music-呵呵\web\dev\trunk\src\WebServer_Manage',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\mobileLive-share',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\yyLivePlayer\js',
+        \ 'C:\Windows\System2\drivers\etc\hosts',
+        \]
+
+else 
+    let g:startify_bookmarks = [
+        \ '/usr/local/opt/macvim/MacVim.app/Contents/Resources/vim/vimrc',
+        \ '~/git/github/vimrc/vimrc',
+        \ '/etc/hosts',
+        \ '/Users/jackness/git/github/tool.jackness.org',
+        \ '/Users/jackness/git/github/node-jns',
+        \]
+endif
+
+nmap<Leader>1 :tabnew<CR>:Startify<CR>
+
+" 起始页显示的列表长度
+let g:startify_files_number = 5
+let g:startify_custom_header = [
+   \'# 传说中最牛逼的编辑器在此 ~(≥▽≤)/~ ',
+   \'-----------------------------------------',
+   \]
+let g:startify_custom_footer = [
+   \'-----------------------------------------',
+   \'# good good study, day day up ╭（′▽｀）╯ ',
+   \'# 如果 session挂了 请输入 :OpenSession! default',
+   \]
+
+" ----------------------------------------
+" # vim-multiple-cursors
+" ----------------------------------------
+" Default mapping 
+"let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-d>' 
+let g:multi_cursor_prev_key='<C-p>' 
+let g:multi_cursor_skip_key='<C-x>' 
+
+" Called once right before you start selecting multiple cursors
+function! Multiple_cursors_before()
+  if exists(':NeoCompleteLock')==2
+    exe 'NeoCompleteLock'
+  endif
+endfunction
+
+" Called once only when the multiple selection is canceled (default <Esc>)
+function! Multiple_cursors_after()
+  if exists(':NeoCompleteUnlock')==2
+    exe 'NeoCompleteUnlock'
+  endif
+endfunction
+
+" ----------------------------------------
+" #  YankRing
+" ----------------------------------------
+map yr :YRShow<CR>
+map <Leader>` :YRShow<CR>
+
+" ----------------------------------------
+" # vim-commentary 
+" ----------------------------------------
+" 设置Python注释字符
+autocmd FileType python,shell set commentstring=#\ %s
+autocmd FileType mako set cms=##\ %s
+
+if MySys() == "windows" 
+    vmap <C-/> gc
+    nmap <C-/> gcc
+else
+    vmap <D-/> gc
+    nmap <D-/> gcc
+
+endif
+
+" ----------------------------------------
+" # ctags 
+" ----------------------------------------
+" " 按照名称排序  
+" let Tlist_Sort_Type = "name"   
+" " 在右侧显示窗口  
+" "let Tlist_Use_Right_Window = 1  
+" " 压缩方式 
+" let Tlist_Compart_Format = 1 
+" " 如果只有一个buffer，kill窗口也kill掉buffer
+" let Tlist_Exist_OnlyWindow = 1    
+" " 不要关闭其他文件的tags  
+" let Tlist_File_Fold_Auto_Close = 0 
+" " 不要显示折叠树  
+" let Tlist_Enable_Fold_Column = 0 
+" "不同时显示多个文件的tag，只显示当前文件的
+" let Tlist_Show_One_File=1      
+
+" ----------------------------------------
+" # NERDTree 
+" ----------------------------------------
+let g:NERDTree_title='[NERD Tree]'
+function! NERDTree_Start()
+    exec 'NERDTree'
+endfunction
+function! NERDTree_IsValid()
+    return 1
+endfunction
+" set ignore filetype
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
+" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
+
+"map <F3> :NERDTreeMirror<CR>
+"map <F3> :NERDTreeToggle<CR>
+" map <Leader>2 :NERDTreeMirror<CR>
+" map <Leader>2 :NERDTreeToggle<CR>
+nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
+
+
+" ----------------------------------------
+" # tagbar
+" ----------------------------------------
+let g:tagbar_width=30
+
+" ----------------------------------------
+" # indentLine
+" ----------------------------------------
+let g:indentLine_leadingSpaceChar = '·'
+
+
+" ----------------------------------------
+" # ctrlSF 
+" ----------------------------------------
+let g:ctrlsf_ackprg = 'ag'
+let g:ctrlsf_context = '-B 5 -A 3'
+
+nmap<S-F> :CtrlSF 
+vmap<S-F> y:CtrlSF <c-r>0
+
+
+" ----------------------------------------
+" # ag
+" ----------------------------------------
+let g:ag_highlight=1
+
+" ----------------------------------------
+" # neocomplete
+" ----------------------------------------
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_auto_select = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 4
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+
+" ----------------------------------------
+" # youcompleteme
+" ----------------------------------------
+if has("win64")
+    let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x64/python/.ycm_extra_conf.py'
+elseif has("win32")
+    let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x86/python/.ycm_extra_conf.py'
+else
+    let g:ycm_global_ycm_extra_conf = $HOME.'/.vim/bundle/YouCompleteMe/python/.ycm_extra_conf.py'
+endif
+
+"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+set completeopt=longest,menu
+"离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"回车即选中当前项
+inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+"上下左右键的行为 会显示其他信息
+inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+"youcompleteme  默认tab  s-tab 和自动补全冲突
+let g:ycm_key_list_select_completion=['<c-j>','<tab>', '<c-n>']
+let g:ycm_key_list_previous_completion=['<c-k>', '<c-p>']
+let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
+" 开启 YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_tags_files=1	
+" 从第2个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=2	
+" 禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0	
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1	
+"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	
+"nnoremap <leader>lo :lopen<CR>	"open locationlist
+"nnoremap <leader>lc :lclose<CR>	"close locationlist
+"在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+"在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+" let g:ycm_filetype_blacklist = {
+"       \ 'tagbar' : 1,
+"       \ 'qf' : 1,
+"       \ 'notes' : 1,
+"       \ 'markdown' : 1,
+"       \ 'unite' : 1,
+"       \ 'text' : 1,
+"       \ 'vimwiki' : 1,
+"       \ 'gitcommit' : 1,
+"       \}
+
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" ----------------------------------------
+" # UltiSnips
+" ----------------------------------------
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsSnippetDirectories=['UltiSnips']
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+" let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" autocmd FileType html,smarty imap <Tab> <c-k>
+ 
+" imap <Tab> <c-k>
+
+
+" ----------------------------------------
+" # js beautify
+" ----------------------------------------
+map <c-j> :call JsBeautify()<cr>
+autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
+" for html
+autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+
+" ----------------------------------------
+" # nerdcommenter
+" ----------------------------------------
+let g:NERDCustomDelimiters = {
+    \ 'html': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/' },
+    \ 'xhtml': {  'left': '<!-- ', 'right': '-->', 'leftAlt': '/*','rightAlt': '*/'},
+    \'vimperator': { 'left': '"' },
+\}
+let NERD_html_alt_style=1
+
+
+" ----------------------------------------
+" # session-vim
+" ----------------------------------------
+" 自动保存session
+let g:session_autosave='yes'
+" 每隔 5 分钟 保存一次 session
+let g:session_autosave_periodic=5
+" 打开vim自动载入上次 session 
+let g:session_default_to_last='yes'
+let g:session_autoload='yes'
+
+map <Leader>ss :SaveSession! default<cr>
+map <Leader>rs :OpenSession! default<cr>
+
+
+" ----------------------------------------
+" # bookmarks
+" ----------------------------------------
+" let g:bookmark_no_default_key_mappings = 1
+map mn :BookmarkNext<CR>
+
+" ----------------------------------------
+" # indentLine
+" ----------------------------------------
+" 快捷键 i 开/关缩进可视化
+nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+
+
+" ----------------------------------------
+" # tagbar
+" ----------------------------------------
+"nmap<Leader>3 :TagbarToggle<CR>
+
+" ----------------------------------------
+" # MRU
+" ----------------------------------------
+nmap<Leader>4 :MRU<CR>
 
