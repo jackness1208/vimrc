@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.9.23
+" Last Change:  2015.9.25
 
 
 " ======================================================
@@ -63,7 +63,8 @@ if MySys() == 'windows'
 
 endif
 
-
+let autocomplete= 'neocomplete'
+" let autocomplete= 'ycm'
 
 " ======================================================
 " 插件设置
@@ -180,22 +181,19 @@ Plugin 'vim-scripts/YankRing.vim'
 " Plugin 'ervandew/supertab'
 
 " 自动补全插件 [需要安装]-------
-if has("win64")
-    Plugin 'snakeleon/YouCompleteMe-x64'
-elseif has("win32")
-    Plugin 'snakeleon/YouCompleteMe-x86'
-else
-    Plugin 'Valloric/YouCompleteMe'
-endif
+" if has("win64")
+"     Plugin 'snakeleon/YouCompleteMe-x64'
+" elseif has("win32")
+"     Plugin 'snakeleon/YouCompleteMe-x86'
+" else
+"     Plugin 'Valloric/YouCompleteMe'
+" endif
 
 " ycm js支持 [需要安装]-------
 Plugin 'marijnh/tern_for_vim'
 
 " 自动补全插件 [需要lua]--------
-" Plugin 'Shougo/neocomplete.vim'
-
-" 代码片段 [需要python] --------
-" Plugin 'tosc/neocomplete-ultisnips'
+Plugin 'Shougo/neocomplete.vim'
 
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
@@ -269,12 +267,13 @@ if has("multi_byte")
     " B,vim tips support
     language messages zh_CN.utf-8
     "关闭自动检测
-    "let g:fencview_autodetect=0
+    let g:fencview_autodetect=0
 endif
 set langmenu=zh_CN.UTF-8
 language message zh_CN.UTF-8
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
 
 
 " 显示tab和空格
@@ -547,7 +546,7 @@ let g:airline_right_sep = ''
 " 设置书签
 if MySys() == 'windows'
     let g:startify_bookmarks = [
-        \ 'C:\Program Files\Vim\_vimrc',
+        \ '$VIM/_vimrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \ 'F:\github\fullslide',
@@ -695,88 +694,98 @@ let g:ag_highlight=1
 " ----------------------------------------
 " # neocomplete
 " ----------------------------------------
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 4
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+if autocomplete == 'neocomplete'
+    " Use neocomplete.
+    let g:neocomplete#enable_at_startup = 0
+    let g:neocomplete#enable_auto_select = 1
+    " Use smartcase.
+    let g:neocomplete#enable_smart_case = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplete#sources#syntax#min_keyword_length = 4
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    " Define dictionary.
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+    " Define keyword.
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+    imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-
 " ----------------------------------------
 " # youcompleteme
 " ----------------------------------------
-if has("win64")
-    let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x64/python/.ycm_extra_conf.py'
-elseif has("win32")
-    let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x86/python/.ycm_extra_conf.py'
-else
-    let g:ycm_global_ycm_extra_conf = $HOME.'/.vim/bundle/YouCompleteMe/python/.ycm_extra_conf.py'
+if autocomplete == 'ycm'
+
+    if has("win64")
+        let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x64/python/.ycm_extra_conf.py'
+    elseif has("win32")
+        let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x86/python/.ycm_extra_conf.py'
+    else
+        let g:ycm_global_ycm_extra_conf = $HOME.'/.vim/bundle/YouCompleteMe/python/.ycm_extra_conf.py'
+    endif
+
+
+    " 菜单
+    highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+    " 选中项
+    highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+
+    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+    set completeopt=longest,menu
+    "离开插入模式后自动关闭预览窗口
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+    "回车即选中当前项
+    inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+    "上下左右键的行为 会显示其他信息
+    inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+    inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+    inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
+    inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
+    "youcompleteme  默认tab  s-tab 和自动补全冲突
+    let g:ycm_key_list_select_completion=['<vab>', '<c-n>']
+    let g:ycm_key_list_previous_completion=['<c-p>']
+    let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
+    " 开启 YCM 基于标签引擎
+    let g:ycm_collect_identifiers_from_tags_files=1	
+    " 从第2个键入字符就开始罗列匹配项
+    let g:ycm_min_num_of_chars_for_completion=2	
+    " 禁止缓存匹配项,每次都重新生成匹配项
+    let g:ycm_cache_omnifunc=0	
+    " 语法关键字补全
+    let g:ycm_seed_identifiers_with_syntax=1	
+    "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	
+    "nnoremap <leader>lo :lopen<CR>	"open locationlist
+    "nnoremap <leader>lc :lclose<CR>	"close locationlist
+    "在注释输入中也能补全
+    let g:ycm_complete_in_comments = 1
+    "在字符串输入中也能补全
+    let g:ycm_complete_in_strings = 1
+    "注释和字符串中的文字也会被收入补全
+    let g:ycm_collect_identifiers_from_comments_and_strings = 0
+    " let g:ycm_filetype_blacklist = {
+    "       \ 'tagbar' : 1,
+    "       \ 'qf' : 1,
+    "       \ 'notes' : 1,
+    "       \ 'markdown' : 1,
+    "       \ 'unite' : 1,
+    "       \ 'text' : 1,
+    "       \ 'vimwiki' : 1,
+    "       \ 'gitcommit' : 1,
+    "       \}
+
+    nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+    nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+    nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 endif
-
-"让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu
-"离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"回车即选中当前项
-inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-"上下左右键的行为 会显示其他信息
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
-inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
-"youcompleteme  默认tab  s-tab 和自动补全冲突
-let g:ycm_key_list_select_completion=['<c-j>','<tab>', '<c-n>']
-let g:ycm_key_list_previous_completion=['<c-k>', '<c-p>']
-let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
-" 开启 YCM 基于标签引擎
-let g:ycm_collect_identifiers_from_tags_files=1	
-" 从第2个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=2	
-" 禁止缓存匹配项,每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0	
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1	
-"nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	
-"nnoremap <leader>lo :lopen<CR>	"open locationlist
-"nnoremap <leader>lc :lclose<CR>	"close locationlist
-"在注释输入中也能补全
-let g:ycm_complete_in_comments = 1
-"在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
-"注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
-" let g:ycm_filetype_blacklist = {
-"       \ 'tagbar' : 1,
-"       \ 'qf' : 1,
-"       \ 'notes' : 1,
-"       \ 'markdown' : 1,
-"       \ 'unite' : 1,
-"       \ 'text' : 1,
-"       \ 'vimwiki' : 1,
-"       \ 'gitcommit' : 1,
-"       \}
-
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " ----------------------------------------
 " # UltiSnips
@@ -843,7 +852,6 @@ map mn :BookmarkNext<CR>
 " 快捷键 i 开/关缩进可视化
 nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
-
 " ----------------------------------------
 " # tagbar
 " ----------------------------------------
@@ -853,4 +861,5 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " # MRU
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
+
 
