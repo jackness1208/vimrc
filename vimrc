@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.9.25
+" Last Change:  2015.9.28
 
 
 " ======================================================
@@ -131,13 +131,7 @@ Plugin 'tpope/vim-commentary'
 " js美化 -----------------------
 Plugin 'maksimr/vim-jsbeautify'
 
-" vim-css-color ----------------
-Plugin 'skammer/vim-css-color'
 
-" js 着色器 --------------------
-Plugin 'jelera/vim-javascript-syntax'
-" html 着色器 --------------------
-Plugin 'othree/html5.vim'
 
 " Plugin 'vim-scripts/jQuery'
 
@@ -203,6 +197,12 @@ Plugin 'honza/vim-snippets'
 
 " ctrlp ------------------------
 Plugin 'kien/ctrlp.vim'
+
+" syntax -----------------------
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'skammer/vim-css-color'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'othree/html5.vim'
 
 call vundle#end()
 filetype plugin indent on
