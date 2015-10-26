@@ -520,7 +520,7 @@ vmap / y/<c-r>0<CR>
 if MySys() == 'windows'
     map <Leader>rv :source $VIM/_vimrc<CR><CR>
 else
-    map <Leader>rv :source ~/_vimrc
+    map <Leader>rv :source $VIM/vimrc<CR><CR>
 endif
 
 
@@ -566,9 +566,9 @@ if MySys() == 'windows'
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
-else 
+els 
     let g:startify_bookmarks = [
-        \ '/usr/local/opt/macvim/MacVim.app/Contents/Resources/vim/vimrc',
+        \ eval(string($VIM)) . '/vimrc',
         \ '~/git/github/vimrc/vimrc',
         \ '/etc/hosts',
         \ '/Users/jackness/git/github/tool.jackness.org',
@@ -883,4 +883,7 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
 
+
+
+else 
 
