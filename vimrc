@@ -1,7 +1,9 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.9.28
+" Last Change:  2015.10.26
 
+let autocomplete= 'neocomplete'
+" let autocomplete= 'ycm'
 
 " ======================================================
 " function 定义
@@ -63,8 +65,7 @@ if MySys() == 'windows'
 
 endif
 
-let autocomplete= 'neocomplete'
-" let autocomplete= 'ycm'
+
 
 " ======================================================
 " 插件设置
@@ -101,6 +102,9 @@ Plugin 'terryma/vim-multiple-cursors'
 
 " 引号括号自动补全 -------------
 Plugin 'jiangmiao/auto-pairs'
+
+" 自动缩进 -------------
+Plugin 'vim-scripts/genindent.vim'
 
 " ctags.vim [需额外装插件]------
 " Plugin 'vim-scripts/ctags.vim'
@@ -140,7 +144,9 @@ Plugin 'pangloss/vim-javascript'
 
 " 书签插件 ---------------------
 " Plugin 'vim-scripts/Visual-Mark'
-Plugin 'MattesGroeger/vim-bookmarks'
+" Plugin 'MattesGroeger/vim-bookmarks'
+" Plugin 'dterei/VimBookmarking'
+Plugin 'kshenoy/vim-signature'
 
 
 " session 插件 -----------------
@@ -174,20 +180,23 @@ Plugin 'vim-scripts/YankRing.vim'
 " 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
 
-" 自动补全插件 [需要安装]-------
-" if has("win64")
-"     Plugin 'snakeleon/YouCompleteMe-x64'
-" elseif has("win32")
-"     Plugin 'snakeleon/YouCompleteMe-x86'
-" else
-"     Plugin 'Valloric/YouCompleteMe'
-" endif
+if autocomplete == 'ycm'
+    " 自动补全插件 [需要安装]-------
+    if has("win64")
+        Plugin 'snakeleon/YouCompleteMe-x64'
+    elseif has("win32")
+        Plugin 'snakeleon/YouCompleteMe-x86'
+    else
+        Plugin 'Valloric/YouCompleteMe'
+    endif
 
-" ycm js支持 [需要安装]-------
-Plugin 'marijnh/tern_for_vim'
+    " ycm js支持 [需要安装]-------
+    Plugin 'marijnh/tern_for_vim'
 
-" 自动补全插件 [需要lua]--------
-Plugin 'Shougo/neocomplete.vim'
+else
+    " 自动补全插件 [需要lua]--------
+    Plugin 'Shougo/neocomplete.vim'
+endif
 
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
@@ -554,7 +563,7 @@ if MySys() == 'windows'
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\mobileLive-share',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\yyLivePlayer\js',
-        \ 'C:\Windows\System2\drivers\etc\hosts',
+        \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
 else 
@@ -696,12 +705,12 @@ let g:ag_highlight=1
 " ----------------------------------------
 if autocomplete == 'neocomplete'
     " Use neocomplete.
-    let g:neocomplete#enable_at_startup = 0
-    let g:neocomplete#enable_auto_select = 1
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_auto_select = 0
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 4
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     " Define dictionary.
@@ -719,6 +728,7 @@ if autocomplete == 'neocomplete'
 
     imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 endif
 " ----------------------------------------
 " # youcompleteme
@@ -751,7 +761,7 @@ if autocomplete == 'ycm'
     inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDown>"
     inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
     "youcompleteme  默认tab  s-tab 和自动补全冲突
-    let g:ycm_key_list_select_completion=['<vab>', '<c-n>']
+    let g:ycm_key_list_select_completion=['<tab>', '<c-n>']
     let g:ycm_key_list_previous_completion=['<c-p>']
     let g:ycm_confirm_extra_conf=0 "关闭加载.ycm_extra_conf.py提示
     " 开启 YCM 基于标签引擎
@@ -771,16 +781,6 @@ if autocomplete == 'ycm'
     let g:ycm_complete_in_strings = 1
     "注释和字符串中的文字也会被收入补全
     let g:ycm_collect_identifiers_from_comments_and_strings = 0
-    " let g:ycm_filetype_blacklist = {
-    "       \ 'tagbar' : 1,
-    "       \ 'qf' : 1,
-    "       \ 'notes' : 1,
-    "       \ 'markdown' : 1,
-    "       \ 'unite' : 1,
-    "       \ 'text' : 1,
-    "       \ 'vimwiki' : 1,
-    "       \ 'gitcommit' : 1,
-    "       \}
 
     nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
     nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
@@ -841,11 +841,32 @@ map <Leader>rs :OpenSession! default<cr>
 
 
 " ----------------------------------------
-" # bookmarks
+" # vim-bookmarks
 " ----------------------------------------
-" let g:bookmark_no_default_key_mappings = 1
-map mn :BookmarkNext<CR>
+" map mn :BookmarkNext<CR>
+" let g:bookmark_save_per_working_dir = 1
+" let g:bookmark_auto_save = 1
 
+
+" ----------------------------------------
+" # VimBookmarking
+" ----------------------------------------
+" map mm :ToggleBookmark<CR>
+" map mn :NextBookmark<CR>
+" map mp :PreviousBookmark<CR>
+
+" ----------------------------------------
+" # vim-signature
+" ----------------------------------------
+ let g:SignatureMap = {
+         \ 'ToggleMarkAtLine'   :  "mm",
+         \ 'GotoNextSpotByPos'  :  "mn",
+         \ 'GotoPrevSpotByPos'  :  "mp",
+         \ 'PurgeMarks'         :  "mx",
+         \ 'GotoNextMarker'     :  "mN",
+         \ 'GotoPrevMarker'     :  "mP",
+         \ 'PurgeMarkers'       :  "mX",
+         \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
