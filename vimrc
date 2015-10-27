@@ -566,7 +566,7 @@ if MySys() == 'windows'
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \]
 
-els 
+else 
     let g:startify_bookmarks = [
         \ eval(string($VIM)) . '/vimrc',
         \ '~/git/github/vimrc/vimrc',
@@ -798,7 +798,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 " let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-
+map <Leader>ue :UltiSnipsEdit<CR>
 " autocmd FileType html,smarty imap <Tab> <c-k>
  
 " imap <Tab> <c-k>
@@ -882,8 +882,4 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " # MRU
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
-
-
-
-else 
 
