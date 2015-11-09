@@ -595,9 +595,13 @@ let g:startify_custom_footer = [
 " ----------------------------------------
 " Default mapping 
 "let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_next_key='<C-d>' 
 let g:multi_cursor_prev_key='<C-p>' 
 let g:multi_cursor_skip_key='<C-x>' 
+if MySys() == 'windows'
+    let g:multi_cursor_next_key='<C-d>' 
+else 
+    let g:multi_cursor_next_key='<D-d>' 
+endif
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
@@ -792,9 +796,15 @@ endif
 " ----------------------------------------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+if MySys() == 'windows'
+    let g:UltiSnipsExpandTrigger="<c-k>"
+    let g:UltiSnipsJumpForwardTrigger="<c-n>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+else 
+    let g:UltiSnipsExpandTrigger="<D-k>"
+    let g:UltiSnipsJumpForwardTrigger="<D-n>"
+    let g:UltiSnipsJumpBackwardTrigger="<D-p>"
+endif
 " let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
