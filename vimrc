@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.10.26
+" Last Change:  2015.11.20
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -212,6 +212,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'skammer/vim-css-color'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/html5.vim'
+Plugin 'digitaltoad/vim-jade'
 
 call vundle#end()
 filetype plugin indent on
@@ -892,4 +893,6 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " # MRU
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
+
+
 
