@@ -819,11 +819,11 @@ map <Leader>ue :UltiSnipsEdit<CR>
 " # js beautify
 " ----------------------------------------
 map <c-j> :call JsBeautify()<cr>
-autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
+autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 " for html
-autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
+autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
 " for css or scss
-autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 
 " ----------------------------------------
 " # nerdcommenter
