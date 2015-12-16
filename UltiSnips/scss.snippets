@@ -1,6 +1,8 @@
-snippet html:m
+snippet mixin:m
+$psdWidth: 640!default;
+
 @function rem($val){
-    @return $val / 64 * 1rem;
+    @return $val / $psdWidth * 1rem;
 }
 endsnippet
 
