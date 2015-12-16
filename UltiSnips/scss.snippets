@@ -1,8 +1,8 @@
 snippet mixin:m
-$psdWidth: 640!default;
+$psdWidth: 320!default;
 
 @function rem($val){
-    @return $val / $psdWidth * 1rem;
+    @return round($val / $psdWidth * 10 * 100) / 100 * 1rem;
 }
 endsnippet
 
