@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2015.11.20
+" Last Change:  2016.01.18
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -231,6 +231,10 @@ set tw=0
 
 set lazyredraw
 set ttyfast
+
+" 禁止警告音
+set nobe
+set vb
 
 " 优化标签页
 set guitablabel=%t
