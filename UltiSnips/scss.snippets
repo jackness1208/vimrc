@@ -1,6 +1,21 @@
-snippet html:m
+snippet mixin:m
+$psdWidth: 320!default;
+
 @function rem($val){
-    @return $val / 64 * 1rem;
+    @return round($val / $psdWidth * 10 * 100) / 100 * 1rem;
+}
+@mixin attr2all($cssAttr, $val...){
+    -webkit-#{$cssAttr}: $val;
+            #{$cssAttr}: $val;
+}
+
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
 }
 endsnippet
 
