@@ -166,6 +166,7 @@ Plugin 'yegappan/mru'
 
 " 语法检测 ---------------------
 Plugin 'Shutnik/jshint2.vim'
+Plugin 'tpope/vim-pathogen'
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
@@ -531,7 +532,15 @@ endif
 " # 插件设置
 " ======================================================
 
+" ----------------------------------------
+" # jshint
+" ----------------------------------------
+set runtimepath+=~/.vim/bundle/jshint2.vim/
+if MySys() == 'windows'
+    let jshint2_command = 'C:\Users\Administrator\AppData\Roaming\npm\node_modules\jshint\bin\jshint'
+else
 
+endif
 " ----------------------------------------
 " # airline 
 " ----------------------------------------
