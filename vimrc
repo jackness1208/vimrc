@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2016.01.18
+" Last Change:  2016.01.24
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -92,7 +92,7 @@ Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
 Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+" Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " vim 开始界面 -----------------
 Plugin 'mhinz/vim-startify'
@@ -104,7 +104,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 
 " 自动缩进 -------------
-Plugin 'vim-scripts/genindent.vim'
+" Plugin 'vim-scripts/genindent.vim'
 
 " ctags.vim [需额外装插件]------
 " Plugin 'vim-scripts/ctags.vim'
@@ -167,7 +167,6 @@ Plugin 'yegappan/mru'
 
 " 语法检测 ---------------------
 Plugin 'Shutnik/jshint2.vim'
-Plugin 'tpope/vim-pathogen'
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
@@ -342,7 +341,7 @@ set number
 " set autoindent
 " set smartindent
 set noai
-set nosmartindent
+set autoindent
 
 " Tab键的宽度
 set tabstop=4
@@ -537,15 +536,7 @@ endif
 " # 插件设置
 " ======================================================
 
-" ----------------------------------------
-" # jshint
-" ----------------------------------------
-set runtimepath+=~/.vim/bundle/jshint2.vim/
-if MySys() == 'windows'
-    let jshint2_command = 'C:\Users\Administrator\AppData\Roaming\npm\node_modules\jshint\bin\jshint'
-else
 
-endif
 " ----------------------------------------
 " # airline 
 " ----------------------------------------
@@ -603,6 +594,8 @@ let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
    \'# 如果 session挂了 请输入 :OpenSession! default',
+   \'# mac 截屏 command + shift + 3',
+    
    \]
 
 " ----------------------------------------
@@ -729,7 +722,7 @@ if autocomplete == 'neocomplete'
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 2
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     " Define dictionary.
@@ -827,6 +820,12 @@ map <Leader>ue :UltiSnipsEdit<CR>
 " autocmd FileType html,smarty imap <Tab> <c-k>
  
 " imap <Tab> <c-k>
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags"
 
 
 " ----------------------------------------
@@ -884,6 +883,7 @@ map <Leader>rs :OpenSession! default<cr>
 " # vim-signature
 " ----------------------------------------
  let g:SignatureMap = {
+         \ 'Leader'             :  "m",
          \ 'ToggleMarkAtLine'   :  "mm",
          \ 'GotoNextSpotByPos'  :  "mn",
          \ 'GotoPrevSpotByPos'  :  "mp",
@@ -908,5 +908,19 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
 
+
+" ----------------------------------------
+" # jshint2
+" ----------------------------------------
+" let jshint2_command = '~/path/to/node_modules/.bin/jshint'
+" Lint JavaScript files after reading it:
+let jshint2_read = 0
+" Lint JavaScript files after saving it:
+let jshint2_save = 1
+" Skip lint confirmation for non JavaScript files:
+let jshint2_confirm = 0
+" Set min and max height of error list:
+let jshint2_min_height = 3
+let jshint2_max_height = 12
 
 
