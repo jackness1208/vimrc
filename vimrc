@@ -58,7 +58,7 @@ endfunction
 " ======================================================
 if MySys() == 'windows'
     set nocompatible
-    source $VIMRUNTIME/vimrc_example.vim
+    " source $VIMRUNTIME/vimrc_example.vim
     source $VIMRUNTIME/mswin.vim
     behave mswin
     set diffexpr=MyDiff()
@@ -88,6 +88,7 @@ Plugin 'vim-scripts/BusyBee'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
@@ -235,9 +236,9 @@ set ttyfast
 
 " 禁止警告音
 if MySys() != 'windows'
-set nobe
-set vb
+    set nobe
 endif
+set vb
 
 " 优化标签页
 set guitablabel=%t
