@@ -562,6 +562,7 @@ let g:airline_right_sep = ''
 if MySys() == 'windows'
     let g:startify_bookmarks = [
         \ '$VIM/_vimrc',
+        \ '~/.jshintrc',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \ 'F:\github\fullslide',
@@ -575,6 +576,7 @@ if MySys() == 'windows'
 else 
     let g:startify_bookmarks = [
         \ eval(string($VIM)) . '/vimrc',
+        \ '~/.jshintrc',
         \ '~/git/github/vimrc/vimrc',
         \ '/etc/hosts',
         \ '/Users/jackness/git/github/tool.jackness.org',
@@ -722,7 +724,7 @@ if autocomplete == 'neocomplete'
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     " Define dictionary.
