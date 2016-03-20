@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2016.01.24
+" Last Change:  2016.03.08
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -58,7 +58,7 @@ endfunction
 " ======================================================
 if MySys() == 'windows'
     set nocompatible
-    source $VIMRUNTIME/vimrc_example.vim
+    " source $VIMRUNTIME/vimrc_example.vim
     source $VIMRUNTIME/mswin.vim
     behave mswin
     set diffexpr=MyDiff()
@@ -88,6 +88,7 @@ Plugin 'vim-scripts/BusyBee'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
@@ -151,8 +152,8 @@ Plugin 'kshenoy/vim-signature'
 
 
 " session 插件 -----------------
-Plugin 'xolox/vim-session'
-Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-session'
+" Plugin 'xolox/vim-misc'
 " Plugin 'vim-scripts/sessionman.vim'
 
 " 最近打开文件查看 -----------------
@@ -214,6 +215,7 @@ Plugin 'skammer/vim-css-color'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
@@ -233,7 +235,9 @@ set lazyredraw
 set ttyfast
 
 " 禁止警告音
-set nobe
+if MySys() != 'windows'
+    set nobe
+endif
 set vb
 
 " 优化标签页
@@ -562,7 +566,9 @@ let g:airline_right_sep = ''
 if MySys() == 'windows'
     let g:startify_bookmarks = [
         \ '$VIM/_vimrc',
-        \ '~/.jshintrc',
+        \ 'C:\Windows\System32\drivers\etc\hosts',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\yy.com-v1',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\yyweb\branches\develop\yyweb-web\src\main\webapp',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \ 'F:\github\fullslide',
@@ -570,15 +576,15 @@ if MySys() == 'windows'
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\mobileLive-share',
         \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\yyLivePlayer\js',
-        \ 'C:\Windows\System32\drivers\etc\hosts',
+        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\yy.com-v1',
         \]
 
 else 
     let g:startify_bookmarks = [
         \ eval(string($VIM)) . '/vimrc',
-        \ '~/.jshintrc',
-        \ '~/git/github/vimrc/vimrc',
+	\ '~/.jshintrc',
         \ '/etc/hosts',
+        \ '~/git/github/vimrc/vimrc',
         \ '/Users/jackness/git/github/tool.jackness.org',
         \ '/Users/jackness/git/github/node-jns',
         \]
@@ -597,6 +603,7 @@ let g:startify_custom_footer = [
    \'# good good study, day day up ╭（′▽｀）╯ ',
    \'# 如果 session挂了 请输入 :OpenSession! default',
    \'# mac 截屏 command + shift + 3',
+   \'# 删除行尾的^M：%s/\r//g',
     
    \]
 
@@ -857,7 +864,7 @@ let NERD_html_alt_style=1
 " 自动保存session
 let g:session_autosave='yes'
 " 每隔 5 分钟 保存一次 session
-let g:session_autosave_periodic=5
+let g:session_autosave_periodic=0
 " 打开vim自动载入上次 session 
 let g:session_default_to_last='yes'
 let g:session_autoload='yes'
@@ -924,5 +931,8 @@ let jshint2_confirm = 0
 " Set min and max height of error list:
 let jshint2_min_height = 3
 let jshint2_max_height = 12
-
+" ----------------------------------------
+" # vim-markdown
+" ----------------------------------------
+let g:vim_markdown_frontmatter=1
 
