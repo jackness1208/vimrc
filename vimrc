@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2016.03.21
+" Last Change:  2016.05.04
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -177,7 +177,7 @@ Plugin 'vim-scripts/YankRing.vim'
 
 
 " 自动补全插件 -----------------
-Plugin 'Shougo/neosnippet.vim'
+" Plugin 'Shougo/neosnippet.vim'
 
 " 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
@@ -203,7 +203,7 @@ endif
 Plugin 'SirVer/ultisnips'
 
 " 代码片段 snippets 文件包 -----
-" Plugin 'honza/vim-snippets'
+Plugin 'honza/vim-snippets'
 
 " ctrlp ------------------------
 Plugin 'kien/ctrlp.vim'
@@ -934,3 +934,4 @@ let jshint2_max_height = 12
 " # vim-markdown
 " ----------------------------------------
 let g:vim_markdown_frontmatter=1
+
