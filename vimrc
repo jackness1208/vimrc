@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2016.03.08
+" Last Change:  2016.05.04
 
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
@@ -181,7 +181,6 @@ Plugin 'vim-scripts/YankRing.vim'
 
 " 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
-
 if autocomplete == 'ycm'
     " 自动补全插件 [需要安装]-------
     if has("win64")
@@ -236,9 +235,9 @@ set ttyfast
 
 " 禁止警告音
 if MySys() != 'windows'
-    set nobe
-endif
+set nobe
 set vb
+endif
 
 " 优化标签页
 set guitablabel=%t
@@ -604,7 +603,7 @@ let g:startify_custom_footer = [
    \'# 如果 session挂了 请输入 :OpenSession! default',
    \'# mac 截屏 command + shift + 3',
    \'# 删除行尾的^M：%s/\r//g',
-    
+   \'# tab 转 space - :set expandtab :%ret! 4',
    \]
 
 " ----------------------------------------
@@ -975,11 +974,11 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
 
-
 " ----------------------------------------
 " # jshint2
 " ----------------------------------------
-" let jshint2_command = '~/path/to/node_modules/.bin/jshint'
+let jshint2_command = $VIM . '/node_modules/.bin/jshint'
+" let jshint2_command = '~/AppData/Roaming/npm/jshint'
 " Lint JavaScript files after reading it:
 let jshint2_read = 0
 " Lint JavaScript files after saving it:
