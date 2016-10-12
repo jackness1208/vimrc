@@ -173,10 +173,8 @@ Plugin 'vim-scripts/YankRing.vim'
 
 
 " 自动补全插件 -----------------
-" Plugin 'Shougo/neosnippet.vim'
-
-" 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
+
 if autocomplete == 'ycm'
     " 自动补全插件 [需要安装]-------
     if has("win64")
@@ -193,6 +191,7 @@ if autocomplete == 'ycm'
 else
     " 自动补全插件 [需要lua]--------
     Plugin 'Shougo/neocomplete.vim'
+    Plugin 'Shougo/neosnippet.vim'
 endif
 
 " 代码片段 [需要python] --------
@@ -574,9 +573,8 @@ else
         \ eval(string($VIM)) . '/vimrc',
         \ '~/.jshintrc',
         \ '/etc/hosts',
-        \ '~/git/github/vimrc/vimrc',
-        \ '/Users/jackness/git/github/tool.jackness.org',
-        \ '/Users/jackness/git/github/node-jns',
+        \ '/Volumes/sd128G/work/git/github/vimrc',
+        \ '/Volumes/sd128G/work/git/yy/code.yy.com/ent-FEteam/yy.com',
         \]
 endif
 
@@ -591,7 +589,6 @@ let g:startify_custom_header = [
 let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
-   " \'# 如果 session挂了 请输入 :OpenSession! default',
    \'# mac 截屏 command + shift + 3',
    \'# 删除行尾的^M：%s/\r//g',
    \'# tab 转 space - <leader>ts',
@@ -605,11 +602,7 @@ let g:startify_custom_footer = [
 "let g:multi_cursor_use_default_mapping=0
 let g:multi_cursor_prev_key='<C-p>' 
 let g:multi_cursor_skip_key='<C-x>' 
-if MySys() == 'windows'
-    let g:multi_cursor_next_key='<C-d>' 
-else 
-    let g:multi_cursor_next_key='<D-d>' 
-endif
+let g:multi_cursor_next_key='<C-d>' 
 
 " Called once right before you start selecting multiple cursors
 function! Multiple_cursors_before()
@@ -722,7 +715,7 @@ if autocomplete == 'neocomplete'
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 2
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     " Define dictionary.
@@ -741,6 +734,54 @@ if autocomplete == 'neocomplete'
     imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
     imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+    " Plugin key-mappings.
+    inoremap <expr><C-g>     neocomplete#undo_completion()
+    inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+    " Recommended key-mappings.
+    " <CR>: close popup and save indent.
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+      " For no inserting <CR> key.
+      "return pumvisible() ? "\<C-y>" : "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    " Close popup by <Space>.
+    "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+    " AutoComplPop like behavior.
+    "let g:neocomplete#enable_auto_select = 1
+
+    " Shell like behavior(not recommended).
+    "set completeopt+=longest
+    "let g:neocomplete#enable_auto_select = 1
+    "let g:neocomplete#disable_auto_complete = 1
+    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+    " Enable heavy omni completion.
+    if !exists('g:neocomplete#sources#omni#input_patterns')
+      let g:neocomplete#sources#omni#input_patterns = {}
+    endif
+    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+    " For perlomni.vim setting.
+    " https://github.com/c9s/perlomni.vim
+    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif
 " ----------------------------------------
 " # youcompleteme
@@ -827,6 +868,10 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags"
 
+" ----------------------------------------
+" # 格式预处理
+" ----------------------------------------
+autocmd FileType vue set ft=html
 
 " ----------------------------------------
 " # js beautify
@@ -914,7 +959,9 @@ nmap<Leader>4 :MRU<CR>
 " ----------------------------------------
 " # jshint2
 " ----------------------------------------
-let jshint2_command = $VIM . '/node_modules/.bin/jshint'
+if MySys() == 'windows'
+    let jshint2_command = $VIM . '/node_modules/.bin/jshint'
+endif
 " let jshint2_command = '~/AppData/Roaming/npm/jshint'
 " Lint JavaScript files after reading it:
 let jshint2_read = 0
