@@ -504,6 +504,7 @@ nmap <Leader>db d0
 " 括号匹配
 map <Leader>a %
 
+
 " 打开文件
 if MySys() == 'windows'
     nmap <Leader>o :! explorer /select,  %:p<CR><CR>
@@ -590,10 +591,11 @@ let g:startify_custom_header = [
 let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
-   \'# 如果 session挂了 请输入 :OpenSession! default',
+   " \'# 如果 session挂了 请输入 :OpenSession! default',
    \'# mac 截屏 command + shift + 3',
    \'# 删除行尾的^M：%s/\r//g',
    \'# tab 转 space - <leader>ts',
+   \'# 宏录制: q1, 宏开始: @1',
    \]
 
 " ----------------------------------------
@@ -674,8 +676,8 @@ function! NERDTree_IsValid()
     return 1
 endfunction
 " set ignore filetype
-let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
-" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
+" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
 
 "map <F3> :NERDTreeMirror<CR>
 "map <F3> :NERDTreeToggle<CR>
