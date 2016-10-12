@@ -482,3 +482,68 @@ optgroup {
 }
 $0
 endsnippet
+
+snippet mixin:web
+$cssjsdate: 20151223!default;
+
+@mixin imgBg($url){
+    background-image: $url + '?' + $cssjsdate;
+}
+
+@mixin png24($url){
+    background-image: url($url + '?' + $cssjsdate);
+    *background-image: none;
+    *filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='#{$url + '?' + $cssjsdate}', sizingMethod='scale');
+}
+
+@mixin attr2all($cssAttr, $val...){
+    -webkit-#{$cssAttr}: $val;
+       -moz-#{$cssAttr}: $val;
+        -ms-#{$cssAttr}: $val;
+         -o-#{$cssAttr}: $val;
+            #{$cssAttr}: $val;
+}
+@mixin opacity($alpha){
+    opacity: $alpha;
+    filter: #{'alpha(opacity='+ ($alpha * 100) +')'};
+}
+
+@mixin clearfix {
+    zoom: 1;
+    &:after {
+        content: '';
+        display: block;
+        height: 0;
+        overflow: hidden;
+        clear: both;
+
+    }
+}
+$0
+endsnippet
+
+snippet normalize:web
+html{ -webkit-text-size-adjust:none;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td { margin:0; padding:0; }
+body{ font:12px/1.5 Arial,\5b8b\4f53, Verdana;}
+h1,h2,h3,h4,h5,h6,p,a{ font-size:100%;}
+ul,ol,li{ list-style:none;}
+table{ border-collapse:collapse; border-style:none;}
+button{ border:0 none; padding:0; cursor:pointer;}
+img{ border:0;}
+input,select,img{ vertical-align:middle;}
+textarea{ resize:vertical;}
+a{ outline:0; text-decoration:none;}
+
+.clearfix, .cf {
+    zoom: 1;
+    &:after {
+	    content: "";
+	    display: block;
+	    height: 0;
+	    clear: both;
+	    visibility: hidden;
+	}
+}
+$0
+endsnippet

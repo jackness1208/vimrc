@@ -48,11 +48,6 @@ function MyDiff()
 endfunction
 
 
-
-
-
-
-
 " ======================================================
 " 预处理
 " ======================================================
@@ -77,6 +72,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 " Plugins
 " base -------------------------
 Plugin 'gmarik/Vundle.vim'
@@ -146,9 +142,9 @@ Plugin 'pangloss/vim-javascript'
 
 " 书签插件 ---------------------
 " Plugin 'vim-scripts/Visual-Mark'
-" Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'MattesGroeger/vim-bookmarks'
 " Plugin 'dterei/VimBookmarking'
-Plugin 'kshenoy/vim-signature'
+" Plugin 'kshenoy/vim-signature'
 
 
 " session 插件 -----------------
@@ -568,7 +564,7 @@ if MySys() == 'windows'
         \ '$VIM/_vimrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \ 'F:\svn\code.yy.com\ent-FEteam\yy.com',
-	\ 'F:\github\vimrc\vimrc',
+        \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
         \]
 
@@ -815,7 +811,7 @@ else
     let g:UltiSnipsJumpForwardTrigger="<D-n>"
     let g:UltiSnipsJumpBackwardTrigger="<D-p>"
 endif
-" let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
+let g:UltiSnipsSnippetsDir = $VIM. "/vimfiles/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 map <Leader>ue :UltiSnipsEdit<CR>
@@ -869,10 +865,11 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-bookmarks
 " ----------------------------------------
-" map mn :BookmarkNext<CR>
-" let g:bookmark_save_per_working_dir = 1
-" let g:bookmark_auto_save = 1
-
+map mn :BookmarkNext<CR>
+let g:bookmark_save_per_working_dir = 0
+let g:bookmark_auto_save = 1
+let g:bookmark_auto_save_file = $VIM . '/vimfiles/vim-bookmarks/.vim-bookmarks'
+let g:bookmark_highlight_lines = 1
 
 " ----------------------------------------
 " # VimBookmarking
@@ -884,16 +881,16 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-signature
 " ----------------------------------------
- let g:SignatureMap = {
-         \ 'Leader'             :  "m",
-         \ 'ToggleMarkAtLine'   :  "mm",
-         \ 'GotoNextSpotByPos'  :  "mn",
-         \ 'GotoPrevSpotByPos'  :  "mp",
-         \ 'PurgeMarks'         :  "mx",
-         \ 'GotoNextMarker'     :  "mN",
-         \ 'GotoPrevMarker'     :  "mP",
-         \ 'PurgeMarkers'       :  "mX",
-         \ }
+" let g:SignatureMap = {
+"         \ 'Leader'             :  "m",
+"         \ 'ToggleMarkAtLine'   :  "mm",
+"         \ 'GotoNextSpotByPos'  :  "mn",
+"         \ 'GotoPrevSpotByPos'  :  "mp",
+"         \ 'PurgeMarks'         :  "mx",
+"         \ 'GotoNextMarker'     :  "mN",
+"         \ 'GotoPrevMarker'     :  "mP",
+"         \ 'PurgeMarkers'       :  "mX",
+"         \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
