@@ -48,11 +48,6 @@ function MyDiff()
 endfunction
 
 
-
-
-
-
-
 " ======================================================
 " 预处理
 " ======================================================
@@ -77,6 +72,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
 " Plugins
 " base -------------------------
 Plugin 'gmarik/Vundle.vim'
@@ -146,9 +142,9 @@ Plugin 'pangloss/vim-javascript'
 
 " 书签插件 ---------------------
 " Plugin 'vim-scripts/Visual-Mark'
-" Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'MattesGroeger/vim-bookmarks'
 " Plugin 'dterei/VimBookmarking'
-Plugin 'kshenoy/vim-signature'
+" Plugin 'kshenoy/vim-signature'
 
 
 " session 插件 -----------------
@@ -214,7 +210,7 @@ Plugin 'skammer/vim-css-color'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
-Plugin 'plasticboy/vim-markdown'
+" Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
@@ -494,6 +490,9 @@ nmap wv <C-w>v
 map <Leader>rn :set relativenumber<CR>
 map <Leader>nn :set norelativenumber<CR>
 
+" tab 转换成 4个空格
+map <Leader>ts :set expandtab<CR>:%ret! 4<CR>
+
 " 定义快捷键在结对符之间跳转，助记pair
 " nmap <Leader>pa %
 
@@ -504,6 +503,7 @@ nmap <Leader>db d0
 
 " 括号匹配
 map <Leader>a %
+
 
 " 打开文件
 if MySys() == 'windows'
@@ -531,8 +531,6 @@ if MySys() == 'windows'
 else
     map <Leader>rv :source $VIM/vimrc<CR><CR>
 endif
-
-
 
 
 " ======================================================
@@ -566,22 +564,15 @@ if MySys() == 'windows'
     let g:startify_bookmarks = [
         \ '$VIM/_vimrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\yy.com-v1',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\yyweb\branches\develop\yyweb-web\src\main\webapp',
+        \ 'F:\svn\code.yy.com\ent-FEteam\yy.com',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
-        \ 'F:\github\fullslide',
-        \ 'F:\svn\svn.yy.com\yy-music-呵呵\web\dev\trunk\src\WebServer_Manage',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web-dragon\star-fans\tieba\branches\develop\tieba-web\src\main\webapp\static\mobile\jns-config.js',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\mobileLive-share',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\mobile-prototype\yyLivePlayer\js',
-        \ 'F:\svn\svn.yy.com-呵呵\yy-music\web\dev\trunk\src\3g\yy.com-v1',
         \]
 
 else 
     let g:startify_bookmarks = [
         \ eval(string($VIM)) . '/vimrc',
-	\ '~/.jshintrc',
+        \ '~/.jshintrc',
         \ '/etc/hosts',
         \ '~/git/github/vimrc/vimrc',
         \ '/Users/jackness/git/github/tool.jackness.org',
@@ -600,10 +591,11 @@ let g:startify_custom_header = [
 let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
-   \'# 如果 session挂了 请输入 :OpenSession! default',
+   " \'# 如果 session挂了 请输入 :OpenSession! default',
    \'# mac 截屏 command + shift + 3',
    \'# 删除行尾的^M：%s/\r//g',
-   \'# tab 转 space - :set expandtab :%ret! 4',
+   \'# tab 转 space - <leader>ts',
+   \'# 宏录制: q1, 宏开始: @1',
    \]
 
 " ----------------------------------------
@@ -684,8 +676,8 @@ function! NERDTree_IsValid()
     return 1
 endfunction
 " set ignore filetype
-let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
-" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
+" let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
 
 "map <F3> :NERDTreeMirror<CR>
 "map <F3> :NERDTreeToggle<CR>
@@ -724,89 +716,31 @@ let g:ag_highlight=1
 " # neocomplete
 " ----------------------------------------
 if autocomplete == 'neocomplete'
-    " Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-    " Disable AutoComplPop.
-    let g:acp_enableAtStartup = 0
     " Use neocomplete.
     let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_auto_select = 0
     " Use smartcase.
     let g:neocomplete#enable_smart_case = 1
     " Set minimum syntax keyword length.
-    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#sources#syntax#min_keyword_length = 2
     let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
     " Define dictionary.
     let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
     " Define keyword.
     if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+        let g:neocomplete#keyword_patterns = {}
     endif
     let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-    " Plugin key-mappings.
-    inoremap <expr><C-g>     neocomplete#undo_completion()
-    inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-    " Recommended key-mappings.
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function()
-      return neocomplete#close_popup() . "\<CR>"
-      " For no inserting <CR> key.
-      "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-    endfunction
-    " <TAB>: completion.
+    imap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+    imap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
     inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-y>  neocomplete#close_popup()
-    inoremap <expr><C-e>  neocomplete#cancel_popup()
-    " Close popup by <Space>.
-    "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-    " For cursor moving in insert mode(Not recommended)
-    "inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-    "inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-    "inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-    "inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-    " Or set this.
-    "let g:neocomplete#enable_cursor_hold_i = 1
-    " Or set this.
-    "let g:neocomplete#enable_insert_char_pre = 1
-
-    " AutoComplPop like behavior.
-    "let g:neocomplete#enable_auto_select = 1
-
-    " Shell like behavior(not recommended).
-    "set completeopt+=longest
-    "let g:neocomplete#enable_auto_select = 1
-    "let g:neocomplete#disable_auto_complete = 1
-    "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " Enable heavy omni completion.
-    if !exists('g:neocomplete#sources#omni#input_patterns')
-      let g:neocomplete#sources#omni#input_patterns = {}
-    endif
-    "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-    "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-    "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-    " For perlomni.vim setting.
-    " https://github.com/c9s/perlomni.vim
-    let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 endif
 " ----------------------------------------
 " # youcompleteme
@@ -879,7 +813,7 @@ else
     let g:UltiSnipsJumpForwardTrigger="<D-n>"
     let g:UltiSnipsJumpBackwardTrigger="<D-p>"
 endif
-" let g:UltiSnipsSnippetsDir = $VIM. "/Ultisnips"
+let g:UltiSnipsSnippetsDir = $VIM. "/vimfiles/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 map <Leader>ue :UltiSnipsEdit<CR>
@@ -933,10 +867,11 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-bookmarks
 " ----------------------------------------
-" map mn :BookmarkNext<CR>
-" let g:bookmark_save_per_working_dir = 1
-" let g:bookmark_auto_save = 1
-
+map mn :BookmarkNext<CR>
+let g:bookmark_save_per_working_dir = 0
+let g:bookmark_auto_save = 1
+let g:bookmark_auto_save_file = $VIM . '/vimfiles/vim-bookmarks/.vim-bookmarks'
+let g:bookmark_highlight_lines = 1
 
 " ----------------------------------------
 " # VimBookmarking
@@ -948,16 +883,16 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-signature
 " ----------------------------------------
- let g:SignatureMap = {
-         \ 'Leader'             :  "m",
-         \ 'ToggleMarkAtLine'   :  "mm",
-         \ 'GotoNextSpotByPos'  :  "mn",
-         \ 'GotoPrevSpotByPos'  :  "mp",
-         \ 'PurgeMarks'         :  "mx",
-         \ 'GotoNextMarker'     :  "mN",
-         \ 'GotoPrevMarker'     :  "mP",
-         \ 'PurgeMarkers'       :  "mX",
-         \ }
+" let g:SignatureMap = {
+"         \ 'Leader'             :  "m",
+"         \ 'ToggleMarkAtLine'   :  "mm",
+"         \ 'GotoNextSpotByPos'  :  "mn",
+"         \ 'GotoPrevSpotByPos'  :  "mp",
+"         \ 'PurgeMarks'         :  "mx",
+"         \ 'GotoNextMarker'     :  "mN",
+"         \ 'GotoPrevMarker'     :  "mP",
+"         \ 'PurgeMarkers'       :  "mX",
+"         \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
@@ -973,6 +908,8 @@ nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " # MRU
 " ----------------------------------------
 nmap<Leader>4 :MRU<CR>
+
+
 
 " ----------------------------------------
 " # jshint2
@@ -992,4 +929,3 @@ let jshint2_max_height = 12
 " # vim-markdown
 " ----------------------------------------
 let g:vim_markdown_frontmatter=1
-
