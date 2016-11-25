@@ -192,6 +192,7 @@ else
     " 自动补全插件 [需要lua]--------
     Plugin 'Shougo/neocomplete.vim'
     Plugin 'Shougo/neosnippet.vim'
+    Plugin 'Shougo/neosnippet-snippets'
 endif
 
 " 代码片段 [需要python] --------
