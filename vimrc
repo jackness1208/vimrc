@@ -81,6 +81,8 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'sickill/vim-monokai'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
+Plugin 'Blevs/vim-dzo'
+Plugin 'jacoborus/tender.vim'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
@@ -89,6 +91,8 @@ Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
 Plugin 'scrooloose/nerdtree'
+" Plugin 'ryanoasis/nerd-fonts'
+
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " vim 开始界面 -----------------
@@ -142,9 +146,9 @@ Plugin 'pangloss/vim-javascript'
 
 " 书签插件 ---------------------
 " Plugin 'vim-scripts/Visual-Mark'
-Plugin 'MattesGroeger/vim-bookmarks'
+" Plugin 'MattesGroeger/vim-bookmarks'
 " Plugin 'dterei/VimBookmarking'
-" Plugin 'kshenoy/vim-signature'
+Plugin 'kshenoy/vim-signature'
 
 
 " session 插件 -----------------
@@ -174,6 +178,7 @@ Plugin 'vim-scripts/YankRing.vim'
 
 " 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
+"
 
 if autocomplete == 'ycm'
     " 自动补全插件 [需要安装]-------
@@ -188,6 +193,9 @@ if autocomplete == 'ycm'
     " ycm js支持 [需要安装]-------
     Plugin 'marijnh/tern_for_vim'
 
+    " 代码片段 snippets 文件包 -----
+    Plugin 'honza/vim-snippets'
+
 else
     " 自动补全插件 [需要lua]--------
     Plugin 'Shougo/neocomplete.vim'
@@ -198,8 +206,7 @@ endif
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
 
-" 代码片段 snippets 文件包 -----
-Plugin 'honza/vim-snippets'
+
 
 " ctrlp ------------------------
 Plugin 'kien/ctrlp.vim'
@@ -309,7 +316,8 @@ set noundofile
 
 " 配色方案
 syntax enable
-colorscheme monokai
+colorscheme tender
+" colorscheme monokai
 " colorscheme BusyBee
 
 " 配置折叠
@@ -327,6 +335,7 @@ if MySys() == 'windows'
 else
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
 endif
+
  "高亮光标所在行
 set cul
 set cuc
@@ -677,7 +686,27 @@ let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
 "map <F3> :NERDTreeToggle<CR>
 " map <Leader>2 :NERDTreeMirror<CR>
 " map <Leader>2 :NERDTreeToggle<CR>
-nn <Leader>2 :exec("NERDTree ".expand('%:h'))<CR>
+nn <Leader>2 :NERDTree %:p:h<CR>
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+ exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+ exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
 " ----------------------------------------
@@ -688,7 +717,7 @@ let g:tagbar_width=30
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
-let g:indentLine_leadingSpaceChar = '·'
+let g:indentLine_leadingSpaceChar = '┆'
 
 
 " ----------------------------------------
@@ -895,6 +924,7 @@ let g:NERDCustomDelimiters = {
 let NERD_html_alt_style=1
 
 
+
 " ----------------------------------------
 " # session-vim
 " ----------------------------------------
@@ -913,11 +943,11 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-bookmarks
 " ----------------------------------------
-map mn :BookmarkNext<CR>
-let g:bookmark_save_per_working_dir = 0
-let g:bookmark_auto_save = 1
-let g:bookmark_auto_save_file = $VIM . '/vimfiles/vim-bookmarks/.vim-bookmarks'
-let g:bookmark_highlight_lines = 1
+" map mn :BookmarkNext<CR>
+" let g:bookmark_save_per_working_dir = 0
+" let g:bookmark_auto_save = 1
+" let g:bookmark_auto_save_file = $VIM . '/vimfiles/vim-bookmarks/.vim-bookmarks'
+" let g:bookmark_highlight_lines = 1
 
 " ----------------------------------------
 " # VimBookmarking
@@ -929,16 +959,16 @@ let g:bookmark_highlight_lines = 1
 " ----------------------------------------
 " # vim-signature
 " ----------------------------------------
-" let g:SignatureMap = {
-"         \ 'Leader'             :  "m",
-"         \ 'ToggleMarkAtLine'   :  "mm",
-"         \ 'GotoNextSpotByPos'  :  "mn",
-"         \ 'GotoPrevSpotByPos'  :  "mp",
-"         \ 'PurgeMarks'         :  "mx",
-"         \ 'GotoNextMarker'     :  "mN",
-"         \ 'GotoPrevMarker'     :  "mP",
-"         \ 'PurgeMarkers'       :  "mX",
-"         \ }
+let g:SignatureMap = {
+        \ 'Leader'             :  "m",
+        \ 'ToggleMarkAtLine'   :  "mm",
+        \ 'GotoNextSpotByPos'  :  "mn",
+        \ 'GotoPrevSpotByPos'  :  "mp",
+        \ 'PurgeMarks'         :  "mx",
+        \ 'GotoNextMarker'     :  "mN",
+        \ 'GotoPrevMarker'     :  "mP",
+        \ 'PurgeMarkers'       :  "mX",
+        \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
