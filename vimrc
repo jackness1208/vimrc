@@ -1,9 +1,9 @@
 
 " Maintainer:   jackness Lau
 " Last Change:  2016.05.04
-
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
+
 
 " ======================================================
 " function 定义
@@ -14,8 +14,14 @@ function MySys()
     else
         return 'others'
     endif
-    
 endfunction
+
+if MySys() == 'windows'
+    let vimFilePath = $VIM. '/vimfiles'
+else 
+    let vimFilePath = $HOME. '/.vim/vimfiles'
+endif
+
 
 " windows 预处理函数
 function MyDiff()
@@ -83,6 +89,7 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
 Plugin 'Blevs/vim-dzo'
 Plugin 'jacoborus/tender.vim'
+Plugin 'muellan/am-colors'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
@@ -191,9 +198,6 @@ if autocomplete == 'ycm'
     endif
 
     " ycm js支持 [需要安装]-------
-    Plugin 'marijnh/tern_for_vim'
-
-    " 代码片段 snippets 文件包 -----
     Plugin 'honza/vim-snippets'
 
 else
@@ -205,8 +209,9 @@ endif
 
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
+Plugin 'marijnh/tern_for_vim'
 
-
+" 代码片段 snippets 文件包 -----
 
 " ctrlp ------------------------
 Plugin 'kien/ctrlp.vim'
@@ -583,8 +588,8 @@ else
         \ eval(string($VIM)) . '/vimrc',
         \ '~/.jshintrc',
         \ '/etc/hosts',
-        \ '/Volumes/sd128G/work/git/github/vimrc',
-        \ '/Volumes/sd128G/work/git/yy/code.yy.com/ent-FEteam/yy.com',
+        \ '~/work/yy',
+        \ '~/work/git',
         \]
 endif
 
@@ -884,7 +889,7 @@ else
     let g:UltiSnipsJumpForwardTrigger="<D-n>"
     let g:UltiSnipsJumpBackwardTrigger="<D-p>"
 endif
-let g:UltiSnipsSnippetsDir = $VIM. "/vimfiles/Ultisnips"
+let g:UltiSnipsSnippetsDir = vimFilePath . "/Ultisnips"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 map <Leader>ue :UltiSnipsEdit<CR>
@@ -943,11 +948,11 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-bookmarks
 " ----------------------------------------
-" map mn :BookmarkNext<CR>
-" let g:bookmark_save_per_working_dir = 0
-" let g:bookmark_auto_save = 1
-" let g:bookmark_auto_save_file = $VIM . '/vimfiles/vim-bookmarks/.vim-bookmarks'
-" let g:bookmark_highlight_lines = 1
+map mn :BookmarkNext<CR>
+let g:bookmark_save_per_working_dir = 0
+let g:bookmark_auto_save = 1
+let g:bookmark_auto_save_file = vimFilePath . '/vim-bookmarks/.vim-bookmarks'
+let g:bookmark_highlight_lines = 1
 
 " ----------------------------------------
 " # VimBookmarking
@@ -959,16 +964,16 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-signature
 " ----------------------------------------
-let g:SignatureMap = {
-        \ 'Leader'             :  "m",
-        \ 'ToggleMarkAtLine'   :  "mm",
-        \ 'GotoNextSpotByPos'  :  "mn",
-        \ 'GotoPrevSpotByPos'  :  "mp",
-        \ 'PurgeMarks'         :  "mx",
-        \ 'GotoNextMarker'     :  "mN",
-        \ 'GotoPrevMarker'     :  "mP",
-        \ 'PurgeMarkers'       :  "mX",
-        \ }
+" let g:SignatureMap = {
+"         \ 'Leader'             :  "m",
+"         \ 'ToggleMarkAtLine'   :  "mm",
+"         \ 'GotoNextSpotByPos'  :  "mn",
+"         \ 'GotoPrevSpotByPos'  :  "mp",
+"         \ 'PurgeMarks'         :  "mx",
+"         \ 'GotoNextMarker'     :  "mN",
+"         \ 'GotoPrevMarker'     :  "mP",
+"         \ 'PurgeMarkers'       :  "mX",
+"         \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
