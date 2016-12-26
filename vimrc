@@ -518,6 +518,9 @@ nmap <Leader>db d0
 " 括号匹配
 map <Leader>a %
 
+" toggle syntax
+map <Leader>s :exec exists('syntax_on') ? 'syn off': 'syn on'<CR>
+
 
 " 打开文件
 if MySys() == 'windows'
