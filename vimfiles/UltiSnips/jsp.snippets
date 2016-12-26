@@ -1,0 +1,27 @@
+snippet if
+<c:if test="${$0}">
+</c:if>
+endsnippet
+
+snippet when
+<c:choose>
+    <c:when test="${$0}">
+    </c:when>
+    <c:otherwise>
+    </c:otherwise>
+</c:choose>
+endsnippet
+
+snippet set
+<c:set var="$1" value="${$0}" scope="page" />
+endsnippet
+
+snippet forEach
+<c:forEach items="${$0}" var="item" varStatus="status">
+</c:forEach>
+endsnippet
+
+snippet for
+<c:forEach items="${$0}" var="i" varStatus="status">
+</c:forEach>
+endsnippet
