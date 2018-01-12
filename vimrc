@@ -177,7 +177,8 @@ Plugin 'yegappan/mru'
 "Plugin 'tpope/vim-surround'
 
 " 语法检测 ---------------------
-Plugin 'Shutnik/jshint2.vim'
+" Plugin 'Shutnik/jshint2.vim'
+Plugin 'scrooloose/syntastic'
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
@@ -608,6 +609,7 @@ else
     let g:startify_bookmarks = [
         \ eval(string($VIM)) . '/vimrc',
         \ '~/.jshintrc',
+        \ '~/.eslintrc.js',
         \ '/etc/hosts',
         \ '~/work/yy',
         \ '~/work/git',
@@ -1029,19 +1031,37 @@ nmap<Leader>4 :MRU<CR>
 " ----------------------------------------
 " # jshint2
 " ----------------------------------------
-if MySys() == 'windows'
-    let jshint2_command = $VIM . '/node_modules/.bin/jshint'
-endif
-" let jshint2_command = '~/AppData/Roaming/npm/jshint'
-" Lint JavaScript files after reading it:
-let jshint2_read = 0
-" Lint JavaScript files after saving it:
-let jshint2_save = 1
-" Skip lint confirmation for non JavaScript files:
-let jshint2_confirm = 0
-" Set min and max height of error list:
-let jshint2_min_height = 3
-let jshint2_max_height = 12
+" if MySys() == 'windows'
+"     let jshint2_command = $VIM . '/node_modules/.bin/jshint'
+" endif
+" " let jshint2_command = '~/AppData/Roaming/npm/jshint'
+" " Lint JavaScript files after reading it:
+" let jshint2_read = 0
+" " Lint JavaScript files after saving it:
+" let jshint2_save = 1
+" " Skip lint confirmation for non JavaScript files:
+" let jshint2_confirm = 0
+" " Set min and max height of error list:
+" let jshint2_min_height = 3
+" let jshint2_max_height = 12
+
+" ----------------------------------------
+" # syntastic eslint
+" ----------------------------------------
+ set statusline+=%#warningmsg#
+ set statusline+=%{SyntasticStatuslineFlag()}
+ set statusline+=%*
+ let g:syntastic_always_populate_loc_list = 1
+ let g:syntastic_auto_loc_list = 0
+ let g:syntastic_check_on_open = 0
+ let g:syntastic_check_on_wq = 0
+ let g:syntastic_javascript_checkers = ['standard']
+ let g:syntastic_javascript_standard_generic = 1
+ let g:syntastic_javascript_checkers = ['eslint']
+ let g:syntastic_javascript_eslint_exec = 'eslint'
+ " let g:syntastic_debug=3
+
+
 " ----------------------------------------
 " # vim-markdown
 " ----------------------------------------
