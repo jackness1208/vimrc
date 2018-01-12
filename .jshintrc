@@ -73,6 +73,7 @@
     "jquery"        : false,    // jQuery
     "mootools"      : false,    // MooTools
     "node"          : true,    // Node.js
+    "mocha"         : true,
     
     "nonstandard"   : false,    // Widely adopted globals (escape, unescape, etc)
     "prototypejs"   : false,    // Prototype and Scriptaculous
@@ -129,3 +130,5 @@
       "module": true
     }
 }
+
+

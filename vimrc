@@ -4,7 +4,6 @@
 let autocomplete= 'neocomplete'
 " let autocomplete= 'ycm'
 
-
 " ======================================================
 " function 定义
 " ======================================================
@@ -25,32 +24,32 @@ endif
 
 " windows 预处理函数
 function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+            if empty(&shellxquote)
+                let l:shxq_sav = ''
+                set shellxquote&
+            endif
+            let cmd = '"' . $VIMRUNTIME . '\diff"'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
     else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        let cmd = $VIMRUNTIME . '\diff'
     endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
+    silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
+    if exists('l:shxq_sav')
+        let &shellxquote=l:shxq_sav
+    endif
 endfunction
 
 
@@ -61,6 +60,7 @@ if MySys() == 'windows'
     set nocompatible
     " source $VIMRUNTIME/vimrc_example.vim
     source $VIMRUNTIME/mswin.vim
+
     behave mswin
     set diffexpr=MyDiff()
 
@@ -98,6 +98,7 @@ Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
 Plugin 'scrooloose/nerdtree'
+Plugin 'taiansu/nerdtree-ag'
 " Plugin 'ryanoasis/nerd-fonts'
 
 " Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -120,6 +121,8 @@ Plugin 'jiangmiao/auto-pairs'
 
 " 搜索插件 gui  ----------------
 Plugin 'dyng/ctrlsf.vim'
+Plugin 'mhinz/vim-grepper'
+
 
 " 搜索插件 ack [需额外装插件]---
 " Plugin 'mileszs/ack.vim'
@@ -186,6 +189,7 @@ Plugin 'vim-scripts/YankRing.vim'
 " 自动补全插件 -----------------
 " Plugin 'ervandew/supertab'
 "
+Plugin 'mattn/emmet-vim'
 
 if autocomplete == 'ycm'
     " 自动补全插件 [需要安装]-------
@@ -209,7 +213,10 @@ endif
 
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
-Plugin 'marijnh/tern_for_vim'
+
+if MySys() != 'windows'
+    Plugin 'marijnh/tern_for_vim'
+endif
 
 " 代码片段 snippets 文件包 -----
 
@@ -222,10 +229,13 @@ Plugin 'skammer/vim-css-color'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
+Plugin 'posva/vim-vue'
+
 " Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin indent on
+
 
 " ======================================================
 " # 系统设置
@@ -473,7 +483,7 @@ nmap <Leader>w :w<CR>
 " 定义快捷键保存所有窗口内容并退出 vim
 nmap <Leader>WQ :wa<CR>:q<CR>
 " 不做任何保存，直接退出 vim
-nmap <Leader>Q :qa!<CR>
+nnoremap <Leader>Q :qa!<CR>
 " 依次遍历tab
 nnoremap tn :tabn<CR>
 " 依次遍历tab
@@ -533,6 +543,13 @@ endif
 map zz v<Leader>b<Leader>e%zf
 
 " 选中区域加双引号
+" function arround(dot)
+"     let a:iTxt = getreg('0')
+"     let a:r = a:dot . a:iTxt . a:dot
+"     pu = a:r
+" endfunction
+" vmap " d:call arround('"')<CR>
+
 vmap " di"<Esc>p
 vmap ' di'<Esc>p
 vmap ( di(<Esc>p
@@ -553,7 +570,6 @@ endif
 " ======================================================
 " # 插件设置
 " ======================================================
-
 
 " ----------------------------------------
 " # airline 
@@ -584,6 +600,8 @@ if MySys() == 'windows'
         \ 'F:\svn\code.yy.com\ent-FEteam\yy.com',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\node-jns',
+        \ 'F:\svn\svn.yy.com\yy-music\static\project\group_web_h5_player\branches\develop\yycom_es6_live_player\pc\src\es6',
+        \ 'F:\svn\svn.yy.com\yy-music\web-dragon\big-idol\yyzone\branches\develop\yyzone-web\src\main\webapp\WEB-INF\views\user',
         \]
 
 else 
@@ -688,7 +706,8 @@ function! NERDTree_IsValid()
 endfunction
 " set ignore filetype
 " let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$','\.mp3','\.jpg','\.gif','\.swf','\.rar','\.zip','\.pdf','\.gz','\.bz2','\.dmg','\.doc','\.tar','\.png','\.rtf']
-let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git','\.pyc$']
+let NERDTreeIgnore=['Thumbs.db','\~$','.DS_Store','\.svn$','\.git$','\.pyc$']
+let NERDTreeShowHidden=1
 
 "map <F3> :NERDTreeMirror<CR>
 "map <F3> :NERDTreeToggle<CR>
@@ -732,6 +751,7 @@ let g:indentLine_leadingSpaceChar = '┆'
 " # ctrlSF 
 " ----------------------------------------
 let g:ctrlsf_ackprg = 'ag'
+" let g:ctrlsf_ackprg = 'ack'
 let g:ctrlsf_context = '-B 5 -A 3'
 
 nmap<S-F> :CtrlSF 
@@ -915,11 +935,22 @@ autocmd FileType vue set ft=html
 " # js beautify
 " ----------------------------------------
 map <c-j> :call JsBeautify()<cr>
+" or
 autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
+" for json
+autocmd FileType json noremap <buffer> <c-j> :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx noremap <buffer> <c-j> :call JsxBeautify()<cr>
 " for html
 autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
 " for css or scss
 autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
+
+autocmd FileType javascript vnoremap <buffer>  <c-j> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <c-j> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <c-j> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-j> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-j> :call RangeCSSBeautify()<cr>
 
 " ----------------------------------------
 " # nerdcommenter
@@ -951,11 +982,11 @@ map <Leader>rs :OpenSession! default<cr>
 " ----------------------------------------
 " # vim-bookmarks
 " ----------------------------------------
-map mn :BookmarkNext<CR>
-let g:bookmark_save_per_working_dir = 0
-let g:bookmark_auto_save = 1
-let g:bookmark_auto_save_file = vimFilePath . '/vim-bookmarks/.vim-bookmarks'
-let g:bookmark_highlight_lines = 1
+" map mn :BookmarkNext<CR>
+" let g:bookmark_save_per_working_dir = 0
+" let g:bookmark_auto_save = 1
+" let g:bookmark_auto_save_file = vimFilePath . '/vim-bookmarks/.vim-bookmarks'
+" let g:bookmark_highlight_lines = 1
 
 " ----------------------------------------
 " # VimBookmarking
@@ -967,16 +998,16 @@ let g:bookmark_highlight_lines = 1
 " ----------------------------------------
 " # vim-signature
 " ----------------------------------------
-" let g:SignatureMap = {
-"         \ 'Leader'             :  "m",
-"         \ 'ToggleMarkAtLine'   :  "mm",
-"         \ 'GotoNextSpotByPos'  :  "mn",
-"         \ 'GotoPrevSpotByPos'  :  "mp",
-"         \ 'PurgeMarks'         :  "mx",
-"         \ 'GotoNextMarker'     :  "mN",
-"         \ 'GotoPrevMarker'     :  "mP",
-"         \ 'PurgeMarkers'       :  "mX",
-"         \ }
+let g:SignatureMap = {
+        \ 'Leader'             :  "m",
+        \ 'ToggleMarkAtLine'   :  "mm",
+        \ 'GotoNextSpotByPos'  :  "mn",
+        \ 'GotoPrevSpotByPos'  :  "mp",
+        \ 'PurgeMarks'         :  "mx",
+        \ 'GotoNextMarker'     :  "mN",
+        \ 'GotoPrevMarker'     :  "mP",
+        \ 'PurgeMarkers'       :  "mX",
+        \ }
 " ----------------------------------------
 " # indentLine
 " ----------------------------------------
@@ -1015,3 +1046,7 @@ let jshint2_max_height = 12
 " # vim-markdown
 " ----------------------------------------
 let g:vim_markdown_frontmatter=1
+
+
+" source F:\github\vim-plugin-helloworld\helloworld.vim
+
