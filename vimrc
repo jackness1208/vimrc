@@ -1,21 +1,22 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2016.05.04
-let autocomplete= 'neocomplete'
-" let autocomplete= 'ycm'
+" Last Change:  2018.01.13
 
-" ======================================================
-" function 定义
-" ======================================================
-function MySys()
-    if has('win32') || has('win64')
-        return 'windows'
-    else
-        return 'others'
-    endif
-endfunction
+" 自动补全工具选择
+let AUTO_COMPLETE = 'neocomplete'
+" let AUTO_COMPLETE = 'neocomplete'
 
-if MySys() == 'windows'
+" 代码检查工具选择
+let SYNTAX_CHECKER = 'eslint'
+" let SYNTAX_CHECKER = 'jshint'
+
+let SYSTEM = 'others'
+if has('win32') || has('win64')
+  let SYSTEM = 'windows'
+endif
+
+
+if SYSTEM == 'windows'
     let vimFilePath = $VIM. '/vimfiles'
 else 
     let vimFilePath = $HOME. '/.vim/vimfiles'
@@ -56,7 +57,7 @@ endfunction
 " ======================================================
 " 预处理
 " ======================================================
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     set nocompatible
     " source $VIMRUNTIME/vimrc_example.vim
     source $VIMRUNTIME/mswin.vim
@@ -177,8 +178,13 @@ Plugin 'yegappan/mru'
 "Plugin 'tpope/vim-surround'
 
 " 语法检测 ---------------------
-" Plugin 'Shutnik/jshint2.vim'
-Plugin 'scrooloose/syntastic'
+if SYNTAX_CHECKER == 'jshint'
+    Plugin 'Shutnik/jshint2.vim'
+endif
+
+if SYNTAX_CHECKER == 'eslint'
+    Plugin 'scrooloose/syntastic'
+endif
 
 " vim-javascript ---------------
 " Plugin 'pangloss/vim-javascript'
@@ -192,7 +198,7 @@ Plugin 'vim-scripts/YankRing.vim'
 "
 Plugin 'mattn/emmet-vim'
 
-if autocomplete == 'ycm'
+if AUTO_COMPLETE == 'ycm'
     " 自动补全插件 [需要安装]-------
     if has("win64")
         Plugin 'snakeleon/YouCompleteMe-x64'
@@ -215,7 +221,7 @@ endif
 " 代码片段 [需要python] --------
 Plugin 'SirVer/ultisnips'
 
-if MySys() != 'windows'
+if SYSTEM != 'windows'
     Plugin 'marijnh/tern_for_vim'
 endif
 
@@ -253,7 +259,7 @@ set lazyredraw
 set ttyfast
 
 " 禁止警告音
-if MySys() != 'windows'
+if SYSTEM != 'windows'
 set nobe
 set vb
 endif
@@ -290,7 +296,7 @@ if has("multi_byte")
         set ambiwidth=double
     endif
 
-    if MySys() == 'windows'
+    if SYSTEM == 'windows'
         set fenc=chinese
         if version>=603
             set helplang=cn
@@ -346,7 +352,7 @@ set foldmarker=/{,/}
 set nofoldenable
 
 " 字体
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 else
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
@@ -368,11 +374,14 @@ set noai
 set autoindent
 
 " Tab键的宽度
-set tabstop=4
-
 " 统一缩进为4
-set softtabstop=4
-set shiftwidth=4
+" set tabstop=4
+" set softtabstop=4
+" set shiftwidth=4
+
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 
 
 " 不要用空格代替制表符
@@ -447,7 +456,7 @@ nmap <S-Tab> <<
 
 "# tab 操作 -----------------------
 map <A-Tab> <Esc> :tabn<CR>
-if MySys() == "windows" 
+if SYSTEM == "windows" 
     nmap <C-t> :tabnew<CR>
 else
     nmap <D-t> :tabnew<CR>
@@ -461,7 +470,7 @@ nmap <CR> i<CR><Esc>
 nmap <BS> i<BS><Esc>
 
 " 插入模式 黏贴 yank 内容
-if MySys() == 'windows' 
+if SYSTEM == 'windows' 
     imap <C-p> <C-r>0
 else
     imap <D-p> <C-r>0
@@ -470,6 +479,10 @@ endif
 map <Leader>b ^
 map <Leader>e $
 vmap <Leader>e $h
+
+" tab 2 tab 4 模式切换
+map t2 :set tabstop=2<CR>:set softtabstop=2<CR>:set shiftwidth=2<CR>:e<CR>
+map t4 :set tabstop=4<CR>:set softtabstop=4<CR>:set shiftwidth=4<CR>:e<CR>
 
 " 设置快捷键将选中文本块复制至系统剪贴板
 vnoremap <Leader>y "+y
@@ -534,7 +547,7 @@ map <Leader>s :exec exists('syntax_on') ? 'syn off': 'syn on'<CR>
 
 
 " 打开文件
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     nmap <Leader>o :! explorer /select,  %:p<CR><CR>
 else
     nmap <Leader>o :! open %:p:h<CR><CR>
@@ -561,7 +574,7 @@ vmap { di{<Esc>p
 vmap / y/<c-r>0<CR>
 
 " 马上让vim配置文件生效
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     map <Leader>rv :source $VIM/_vimrc<CR><CR>
 else
     map <Leader>rv :source $VIM/vimrc<CR><CR>
@@ -576,7 +589,7 @@ endif
 " # airline 
 " ----------------------------------------
 set laststatus=2
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     let g:airline_powerline_fonts = 0
 else
     let g:airline_powerline_fonts = 1
@@ -594,7 +607,7 @@ let g:airline_right_sep = ''
 " # startify 
 " ----------------------------------------
 " 设置书签
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     let g:startify_bookmarks = [
         \ '$VIM/_vimrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
@@ -669,7 +682,7 @@ map <Leader>` :YRShow<CR>
 autocmd FileType python,shell set commentstring=#\ %s
 autocmd FileType mako set cms=##\ %s
 
-if MySys() == "windows" 
+if SYSTEM == "windows" 
     vmap <C-/> gc
     nmap <C-/> gcc
 else
@@ -768,7 +781,7 @@ let g:ag_highlight=1
 " ----------------------------------------
 " # neocomplete
 " ----------------------------------------
-if autocomplete == 'neocomplete'
+if AUTO_COMPLETE == 'neocomplete'
     " Use neocomplete.
     let g:neocomplete#enable_at_startup = 1
     let g:neocomplete#enable_auto_select = 0
@@ -846,7 +859,7 @@ endif
 " ----------------------------------------
 " # youcompleteme
 " ----------------------------------------
-if autocomplete == 'ycm'
+if AUTO_COMPLETE == 'ycm'
 
     if has("win64")
         let g:ycm_global_ycm_extra_conf = $VIM.'/vimfiles/bundle/YouCompleteMe-x64/python/.ycm_extra_conf.py'
@@ -905,7 +918,7 @@ endif
 " ----------------------------------------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
-if MySys() == 'windows'
+if SYSTEM == 'windows'
     let g:UltiSnipsExpandTrigger="<c-k>"
     let g:UltiSnipsJumpForwardTrigger="<c-n>"
     let g:UltiSnipsJumpBackwardTrigger="<c-p>"
@@ -931,7 +944,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags"
 " ----------------------------------------
 " # 格式预处理
 " ----------------------------------------
-autocmd FileType vue set ft=html
+" autocmd FileType vue set ft=html
 
 " ----------------------------------------
 " # js beautify
@@ -1031,36 +1044,40 @@ nmap<Leader>4 :MRU<CR>
 " ----------------------------------------
 " # jshint2
 " ----------------------------------------
-" if MySys() == 'windows'
-"     let jshint2_command = $VIM . '/node_modules/.bin/jshint'
-" endif
-" " let jshint2_command = '~/AppData/Roaming/npm/jshint'
-" " Lint JavaScript files after reading it:
-" let jshint2_read = 0
-" " Lint JavaScript files after saving it:
-" let jshint2_save = 1
-" " Skip lint confirmation for non JavaScript files:
-" let jshint2_confirm = 0
-" " Set min and max height of error list:
-" let jshint2_min_height = 3
-" let jshint2_max_height = 12
+if SYNTAX_CHECKER == 'jshint'
+    if SYSTEM == 'windows'
+        let jshint2_command = $VIM . '/node_modules/.bin/jshint'
+    endif
+    " let jshint2_command = '~/AppData/Roaming/npm/jshint'
+    " Lint JavaScript files after reading it:
+    let jshint2_read = 0
+    " Lint JavaScript files after saving it:
+    let jshint2_save = 1
+    " Skip lint confirmation for non JavaScript files:
+    let jshint2_confirm = 0
+    " Set min and max height of error list:
+    let jshint2_min_height = 3
+    let jshint2_max_height = 12
+endif
 
 " ----------------------------------------
 " # syntastic eslint
 " ----------------------------------------
- set statusline+=%#warningmsg#
- set statusline+=%{SyntasticStatuslineFlag()}
- set statusline+=%*
- let g:syntastic_always_populate_loc_list = 1
- let g:syntastic_auto_loc_list = 0
- let g:syntastic_check_on_open = 0
- let g:syntastic_check_on_wq = 0
- let g:syntastic_javascript_checkers = ['standard']
- let g:syntastic_javascript_standard_generic = 1
- let g:syntastic_javascript_checkers = ['eslint']
- let g:syntastic_javascript_eslint_exec = 'eslint'
- " let g:syntastic_debug=3
+" 需全局安装 eslint
+" npm i -g eslint eslint-config-airbnb-base eslint-plugin-import babel-eslint eslint-plugin-html
+if SYNTAX_CHECKER == 'eslint'
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 0
+    let g:syntastic_check_on_open = 0
+    let g:syntastic_check_on_wq = 0
 
+    let g:syntastic_javascript_checkers = ['eslint']
+    let g:syntastic_vue_checkers = ['eslint']
+    " let g:syntastic_debug=3
+endif
 
 " ----------------------------------------
 " # vim-markdown
