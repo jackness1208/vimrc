@@ -1,9 +1,9 @@
 module.exports = {
     "env": {
-        "browser": true,
-        "node": true,
+      "browser": true,
+      "node": true,
     	"shared-node-browser":true,
-        "es6": true,
+      "es6": true,
     	"jquery": true,
     	"mocha":true,
     	"prototypejs":true,
@@ -56,7 +56,7 @@ module.exports = {
         "indent": [ "warn", 4 , {"SwitchCase": 1}],
 
          // 强制使用一致的换行风格
-        "linebreak-style": [ "error", "windows" ],
+        "linebreak-style": [ "error" ],
 
         // 强制使用一致的反勾号、双引号或单引号
         "quotes": [ "warn", "single" ],
@@ -65,3 +65,4 @@ module.exports = {
         "semi": [ "error", "always" ]
     }
 };
+
