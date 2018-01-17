@@ -1,16 +1,16 @@
 module.exports = {
     "env": {
-      "browser": true,
-      "node": true,
-    	"shared-node-browser":true,
-      "es6": true,
-    	"jquery": true,
-    	"mocha":true,
-    	"prototypejs":true,
-    	"nashorn":true,
-    	"embertest":true,
-    	"amd":true,
-    	"worker":true
+        "browser": true,
+        "node": true,
+        "shared-node-browser":true,
+        "es6": true,
+        "jquery": true,
+        "mocha":true,
+        "prototypejs":true,
+        "nashorn":true,
+        "embertest":true,
+        "amd":true,
+        "worker":true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -46,7 +46,7 @@ module.exports = {
         // 禁止不必要的布尔转换
         "no-extra-boolean-cast": 0,
 
-         // 禁止 case 语句落空
+        // 禁止 case 语句落空
         "no-fallthrough": "off",
 
         // 控制逗号前后的空格
@@ -55,7 +55,7 @@ module.exports = {
         // 空格控制
         "indent": [ "warn", 4 , {"SwitchCase": 1}],
 
-         // 强制使用一致的换行风格
+        // 强制使用一致的换行风格
         "linebreak-style": [ "error" ],
 
         // 强制使用一致的反勾号、双引号或单引号
@@ -69,12 +69,12 @@ module.exports = {
 
         // 要求或禁止语句块之前的空格
         "space-before-blocks": [1, "always"],
-         // 要求或禁止块内填充
+        // 要求或禁止块内填充
         "padded-blocks": [1, {"blocks": "never"}],
 
         // 一行代码最大长度
         "max-len": [1, {"code": 100, "ignoreStrings": true, "ignoreRegExpLiterals": true, "ignoreComments": true}],
-        
+
         "no-trailing-spaces": [1, {"ignoreComments": true}],
 
         // 大括号风格要求
