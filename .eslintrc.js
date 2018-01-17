@@ -41,7 +41,7 @@ module.exports = {
         "comma-dangle": [2, "never"],
 
         // 禁止空语句块
-        "no-empty": 1,
+        "no-empty": [1, { "allowEmptyCatch": true }],
 
         // 禁止不必要的布尔转换
         "no-extra-boolean-cast": 0,
@@ -62,6 +62,27 @@ module.exports = {
         "quotes": [ "warn", "single" ],
 
         // 要求或禁止使用分号而不是 ASI（这个才是控制行尾部分号的，）
-        "semi": [ "error", "always" ]
+        "semi": [ "error", "always" ],
+
+        // 关键字 后面必须跟空格
+        "keyword-spacing": [1, {"before": true, "after": true}],
+
+        // 要求或禁止语句块之前的空格
+        "space-before-blocks": [1, "always"],
+         // 要求或禁止块内填充
+        "padded-blocks": [1, {"blocks": "never"}],
+
+        // 一行代码最大长度
+        "max-len": [1, {"code": 100, "ignoreStrings": true, "ignoreRegExpLiterals": true, "ignoreComments": true}],
+        
+        "no-trailing-spaces": [1, {"ignoreComments": true}],
+
+        // 大括号风格要求
+        "brace-style": [2],
+
+        // 要求遵循大括号约定
+        "curly": [2]
+
     }
 };
+

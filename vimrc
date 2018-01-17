@@ -4,11 +4,17 @@
 
 " 自动补全工具选择
 let AUTO_COMPLETE = 'neocomplete'
-" let AUTO_COMPLETE = 'neocomplete'
+" let AUTO_COMPLETE = 'ycm'
 
 " 代码检查工具选择
 let SYNTAX_CHECKER = 'eslint'
 " let SYNTAX_CHECKER = 'jshint'
+
+" tab 4|2 设置
+let TAB_WIDTH = 4
+" let TAB_WIDTH = 2
+
+
 
 let SYSTEM = 'others'
 if has('win32') || has('win64')
@@ -237,6 +243,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'posva/vim-vue'
+Plugin 'isRuslan/vim-es6'
 
 " Plugin 'plasticboy/vim-markdown'
 
@@ -336,11 +343,13 @@ set noswapfile
 set nobackup
 set noundofile
 
+
 " 配色方案
 syntax enable
 colorscheme tender
 " colorscheme monokai
 " colorscheme BusyBee
+
 
 " 配置折叠
 "set foldmethod=manual
@@ -374,14 +383,18 @@ set noai
 set autoindent
 
 " Tab键的宽度
-" 统一缩进为4
-" set tabstop=4
-" set softtabstop=4
-" set shiftwidth=4
-
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
+let &tabstop=TAB_WIDTH
+let &softtabstop=TAB_WIDTH
+let &shiftwidth=TAB_WIDTH
+" if TAB_WIDTH == 4
+"     set tabstop=4
+"     set softtabstop=4
+"     set shiftwidth=4
+" else 
+"     set tabstop=2
+"     set softtabstop=2
+"     set shiftwidth=2
+" endif
 
 
 " 不要用空格代替制表符
