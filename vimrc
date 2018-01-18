@@ -90,13 +90,14 @@ call vundle#begin()
 " base -------------------------
 Plugin 'gmarik/Vundle.vim'
 
-"threme ------------------------
+"theme ------------------------
 Plugin 'sickill/vim-monokai'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
 Plugin 'Blevs/vim-dzo'
 Plugin 'jacoborus/tender.vim'
 Plugin 'muellan/am-colors'
+Plugin 'nanotech/jellybeans'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
@@ -247,6 +248,9 @@ Plugin 'isRuslan/vim-es6'
 
 " Plugin 'plasticboy/vim-markdown'
 
+" editorconfig -----------------
+Plugin 'editorconfig/editorconfig-vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -346,9 +350,11 @@ set noundofile
 
 " 配色方案
 syntax enable
+" colorscheme am-colors
 colorscheme tender
 " colorscheme monokai
 " colorscheme BusyBee
+" colorscheme jellybeans
 
 
 " 配置折叠
@@ -386,15 +392,6 @@ set autoindent
 let &tabstop=TAB_WIDTH
 let &softtabstop=TAB_WIDTH
 let &shiftwidth=TAB_WIDTH
-" if TAB_WIDTH == 4
-"     set tabstop=4
-"     set softtabstop=4
-"     set shiftwidth=4
-" else 
-"     set tabstop=2
-"     set softtabstop=2
-"     set shiftwidth=2
-" endif
 
 
 " 不要用空格代替制表符
@@ -1097,6 +1094,10 @@ endif
 " ----------------------------------------
 let g:vim_markdown_frontmatter=1
 
+" ----------------------------------------
+" # editorconfig
+" ----------------------------------------
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " source F:\github\vim-plugin-helloworld\helloworld.vim
 
