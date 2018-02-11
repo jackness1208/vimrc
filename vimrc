@@ -549,6 +549,9 @@ nmap <Leader>de d$
 " 删除到行头
 nmap <Leader>db d0
 
+" 删除 ^m
+nmap cm :%s/\r//g<CR>
+
 " 括号匹配
 map <Leader>a %
 
@@ -623,7 +626,7 @@ if SYSTEM == 'windows'
         \ 'C:\Windows\System32\drivers\etc\hosts',
         \ 'F:\svn\code.yy.com\ent-FEteam\yy.com',
         \ 'F:\github\vimrc\vimrc',
-        \ 'F:\github\node-jns',
+        \ 'F:\github\yyl',
         \ 'F:\svn\svn.yy.com\yy-music\static\project\group_web_h5_player\branches\develop\yycom_es6_live_player\pc\src\es6',
         \ 'F:\svn\svn.yy.com\yy-music\web-dragon\big-idol\yyzone\branches\develop\yyzone-web\src\main\webapp\WEB-INF\views\user',
         \]
@@ -651,7 +654,7 @@ let g:startify_custom_footer = [
    \'-----------------------------------------',
    \'# good good study, day day up ╭（′▽｀）╯ ',
    \'# mac 截屏 command + shift + 3',
-   \'# 删除行尾的^M：%s/\r//g',
+   \'# 删除行尾的^M - cm',
    \'# tab 转 space - <leader>ts',
    \'# 宏录制: q1, 宏开始: @1',
    \]
@@ -690,6 +693,7 @@ map <Leader>` :YRShow<CR>
 " ----------------------------------------
 " 设置Python注释字符
 autocmd FileType python,shell set commentstring=#\ %s
+autocmd FileType dosbatch set commentstring=@rem%s
 autocmd FileType mako set cms=##\ %s
 
 if SYSTEM == "windows" 
@@ -1093,11 +1097,6 @@ endif
 " # vim-markdown
 " ----------------------------------------
 let g:vim_markdown_frontmatter=1
-
-" ----------------------------------------
-" # editorconfig
-" ----------------------------------------
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " ----------------------------------------
 " # editorconfig
