@@ -247,6 +247,9 @@ Plugin 'isRuslan/vim-es6'
 
 " Plugin 'plasticboy/vim-markdown'
 
+" editorconfig -----------------
+Plugin 'editorconfig/editorconfig-vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -1098,5 +1101,12 @@ endif
 let g:vim_markdown_frontmatter=1
 
 
+" ----------------------------------------
+" # editorconfig
+" ----------------------------------------
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+
 " source F:\github\vim-plugin-helloworld\helloworld.vim
+
 
