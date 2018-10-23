@@ -243,7 +243,6 @@ Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'posva/vim-vue'
 Plugin 'isRuslan/vim-es6'
-Plugin 'pangloss/posva/vim-vue'
 
 " Plugin 'plasticboy/vim-markdown'
 
@@ -1116,3 +1115,4 @@ let g:vim_markdown_frontmatter=1
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 " source F:\github\vim-plugin-helloworld\helloworld.vim
+
