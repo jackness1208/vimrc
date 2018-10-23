@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2018.01.13
+" Last Change:  2018.10.23
 
 " 自动补全工具选择
 let AUTO_COMPLETE = 'neocomplete'
@@ -92,12 +92,10 @@ Plugin 'gmarik/Vundle.vim'
 
 "theme ------------------------
 Plugin 'sickill/vim-monokai'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
 Plugin 'Blevs/vim-dzo'
 Plugin 'jacoborus/tender.vim'
 Plugin 'muellan/am-colors'
-Plugin 'nanotech/jellybeans'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
@@ -371,7 +369,7 @@ set nofoldenable
 if SYSTEM == 'windows'
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 else
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h18
+    set guifont=Meslo\ LG\ L\ for\ Powerline:h14
 endif
 
  "高亮光标所在行
@@ -651,14 +649,27 @@ let g:startify_custom_header = [
    \'# 传说中最牛逼的编辑器在此 ~(≥▽≤)/~ ',
    \'-----------------------------------------',
    \]
-let g:startify_custom_footer = [
-   \'-----------------------------------------',
-   \'# good good study, day day up ╭（′▽｀）╯ ',
-   \'# mac 截屏 command + shift + 3',
-   \'# 删除行尾的^M - cm',
-   \'# tab 转 space - <leader>ts',
-   \'# 宏录制: q1, 宏开始: @1',
-   \]
+if SYSTEM == 'windows'
+    let g:startify_custom_footer = [
+       \'-----------------------------------------',
+       \'# good good study, day day up ╭（′▽｀）╯ ',
+       \'# 删除行尾的^M - cm',
+       \'# tab 转 space - <leader>ts',
+       \'# 宏录制: q1, 宏开始: @1',
+       \]
+else 
+    let g:startify_custom_footer = [
+       \'-----------------------------------------',
+       \'# good good study, day day up ╭（′▽｀）╯ ',
+       \'# mac 截屏 command + shift + 3',
+       \'# 删除行尾的^M - cm',
+       \'# tab 转 space - <leader>ts',
+       \'# 宏录制: q1, 宏开始: @1',
+       \'# 更新 vim 前先打开一下 xcode, 然后命令行输入:'',
+       \'# brew install vim --with-lua --with-python3 --with-override-system-vim'',
+       \]
+endif
+
 
 " ----------------------------------------
 " # vim-multiple-cursors
@@ -1106,5 +1117,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 
 " source F:\github\vim-plugin-helloworld\helloworld.vim
+
 
 
