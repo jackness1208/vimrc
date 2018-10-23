@@ -92,17 +92,14 @@ Plugin 'gmarik/Vundle.vim'
 
 "theme ------------------------
 Plugin 'sickill/vim-monokai'
-Plugin 'nanotech/jellybeans.vim'
 Plugin 'vim-scripts/BusyBee'
 Plugin 'Blevs/vim-dzo'
 Plugin 'jacoborus/tender.vim'
 Plugin 'muellan/am-colors'
-Plugin 'nanotech/jellybeans'
 
 " status bar -------------------
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-airline/fonts'
 Plugin 'tpope/vim-fugitive'
 
 " 目录树 -----------------------
