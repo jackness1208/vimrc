@@ -1115,8 +1115,4 @@ let g:vim_markdown_frontmatter=1
 " ----------------------------------------
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-
 " source F:\github\vim-plugin-helloworld\helloworld.vim
-
-
-
