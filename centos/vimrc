@@ -1,10 +1,7 @@
 " tab 4|2 设置
 let TAB_WIDTH = 4
 
-let SYSTEM = 'others'
-if has('win32') || has('win64')
-  let SYSTEM = 'windows'
-endif
+
 
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
    set fileencodings=ucs-bom,utf-8,latin1
@@ -92,9 +89,9 @@ set foldmarker=/{,/}
 " 启动 vim 时关闭折叠代码
 set nofoldenable
 
- "高亮光标所在行
-set cul
-set cuc
+"高亮光标所在行
+" set cul
+" set cuc
 
 " 自动缩进
 " set autoindent
