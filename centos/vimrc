@@ -1,6 +1,10 @@
 " tab 4|2 设置
 let TAB_WIDTH = 4
 
+let SYSTEM = 'others'
+if has('win32') || has('win64')
+  let SYSTEM = 'windows'
+endif
 
 
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
