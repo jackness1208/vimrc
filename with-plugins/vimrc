@@ -269,7 +269,6 @@ set ttyfast
 
 " 禁止警告音
 if SYSTEM != 'windows'
-set nobe
 set vb
 endif
 
@@ -368,7 +367,7 @@ set nofoldenable
 if SYSTEM == 'windows'
     set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h14
 else
-    set guifont=Meslo\ LG\ L\ for\ Powerline:h14
+    set guifont=DejaVuSansMono\ Nerd\ Font\ Mono:h16
 endif
 
  "高亮光标所在行
@@ -636,7 +635,7 @@ else
         \ '~/.eslintrc.js',
         \ '/etc/hosts',
         \ '~/work/yy',
-        \ '~/work/git',
+        \ '~/work/github',
         \]
 endif
 
@@ -654,7 +653,7 @@ if SYSTEM == 'windows'
        \'# good good study, day day up ╭（′▽｀）╯ ',
        \'# 删除行尾的^M - cm',
        \'# tab 转 space - <leader>ts',
-       \'# 宏录制: q1, 宏开始: @1',
+       \'# 宏录制: q1, 宏开始: @1'
        \]
 else 
     let g:startify_custom_footer = [
@@ -664,8 +663,8 @@ else
        \'# 删除行尾的^M - cm',
        \'# tab 转 space - <leader>ts',
        \'# 宏录制: q1, 宏开始: @1',
-       \'# 更新 vim 前先打开一下 xcode, 然后命令行输入:'',
-       \'# brew install vim --with-lua --with-python3 --with-override-system-vim'',
+       \'# 更新 vim 前先打开一下 xcode, 然后命令行输入:',
+       \'# brew install vim --with-lua --with-python3 --with-override-system-vim'
        \]
 endif
 
