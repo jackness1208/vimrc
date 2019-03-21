@@ -1,6 +1,6 @@
 
 " Maintainer:   jackness Lau
-" Last Change:  2019.03.11
+" Last Change:  2019.03.21
 
 " 自动补全工具选择
 let AUTO_COMPLETE = 'neocomplete'
@@ -243,6 +243,8 @@ Plugin 'othree/html5.vim'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'posva/vim-vue'
 Plugin 'isRuslan/vim-es6'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'chr4/nginx.vim'
 
 " Plugin 'plasticboy/vim-markdown'
 
@@ -625,11 +627,9 @@ if SYSTEM == 'windows'
     let g:startify_bookmarks = [
         \ '$VIM/_vimrc',
         \ 'C:\Windows\System32\drivers\etc\hosts',
-        \ 'F:\svn\code.yy.com\ent-FEteam\yy.com',
+        \ 'F:\svn\git.yy.com\webs\web_static\yycom\',
         \ 'F:\github\vimrc\vimrc',
         \ 'F:\github\yyl',
-        \ 'F:\svn\svn.yy.com\yy-music\static\project\group_web_h5_player\branches\develop\yycom_es6_live_player\pc\src\es6',
-        \ 'F:\svn\svn.yy.com\yy-music\web-dragon\big-idol\yyzone\branches\develop\yyzone-web\src\main\webapp\WEB-INF\views\user',
         \]
 
 else 
@@ -968,6 +968,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags"
+autocmd FileType vue syntax sync fromstart
 
 " ----------------------------------------
 " # 格式预处理
@@ -983,7 +984,7 @@ autocmd FileType javascript noremap <buffer>  <c-j> :call JsBeautify()<cr>
 " for json
 autocmd FileType json noremap <buffer> <c-j> :call JsonBeautify()<cr>
 " for jsx
-autocmd FileType jsx noremap <buffer> <c-j> :call JsxBeautify()<cr>
+" autocmd FileType jsx noremap <buffer> <c-j> :call JsxBeautify()<cr>
 " for html
 autocmd FileType html noremap <buffer> <c-j> :call HtmlBeautify()<cr>
 " for css or scss
@@ -991,7 +992,7 @@ autocmd FileType css noremap <buffer> <c-j> :call CSSBeautify()<cr>
 
 autocmd FileType javascript vnoremap <buffer>  <c-j> :call RangeJsBeautify()<cr>
 autocmd FileType json vnoremap <buffer> <c-j> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <buffer> <c-j> :call RangeJsxBeautify()<cr>
+" autocmd FileType jsx vnoremap <buffer> <c-j> :call RangeJsxBeautify()<cr>
 autocmd FileType html vnoremap <buffer> <c-j> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-j> :call RangeCSSBeautify()<cr>
 
@@ -1116,6 +1117,12 @@ let g:vim_markdown_frontmatter=1
 " # editorconfig
 " ----------------------------------------
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+
+" ----------------------------------------
+" # typescript
+" ----------------------------------------
+let g:typescript_indent_disable = 1
 
 " source F:\github\vim-plugin-helloworld\helloworld.vim
 
